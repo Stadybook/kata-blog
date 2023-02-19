@@ -1,9 +1,8 @@
-import React from "react";
-import './ArticleList.scss';
-import Article from "../Article/Article";
+import React from 'react';
 
-export default function ArticleList(){
-    return(
-        <Article />
-    )
+import './ArticleList.scss';
+import Article from '../Article/Article';
+
+export default function ArticleList() {
+    return <Article />;
 }

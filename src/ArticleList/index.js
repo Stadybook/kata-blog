@@ -1,4 +1,3 @@
-import ArticleList from "./ArticleList";
-
+import ArticleList from './ArticleList';
 
 export default ArticleList;
