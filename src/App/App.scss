@@ -1,0 +1,42 @@
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p, ul, li
+ {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+	&:active {
+		outline: none;
+	}
+	&:focus {
+		outline: none;
+		cursor: pointer;
+	}
+	&::-moz-focus-inner {
+		border: 0;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+body{
+    background: #E5E5E5;
+    font-family: 'Inter', sans-serif;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
