@@ -3,7 +3,8 @@ article{
     flex-direction: column;
     background: #FFFFFF;
     width: 941px;
-    height: 870px;
+    /* height: 870px;*/
+    height: 140px;
     padding: 17px 0 0 19px;
 }
 .header{
@@ -37,6 +38,7 @@ article{
     display: flex;
     align-items: center;
     color: #1890FF;
+    padding-bottom: 8px;
 }
 .author{
     display: flex;
@@ -47,9 +49,24 @@ article{
     flex-direction: column;
     justify-content: center;
 }
+.date{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 12px;
+    line-height: 22px;
+}
 .avatar{
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.avatar img{
+    display:block;
+    max-width: 46px;
 }
 
 .description{
@@ -58,10 +75,4 @@ article{
     color: rgba(0, 0, 0, 0.5);
     padding-right: 240px;
     margin-bottom: 25px;
-}
-.text{
-    padding-right: 42px;
-    font-size: 20px;
-    line-height: 28px;
-    color: rgba(0, 0, 0, 0.75);
 }
