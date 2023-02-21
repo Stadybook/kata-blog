@@ -26,7 +26,12 @@ export default function FullArticle(props) {
         const { body } = item[0];
         return (
             <article>
-                <Article {...item[0]} />
+                <Article
+                    {...item[0]}
+                    func={(text) => {
+                        return text;
+                    }}
+                />
                 <ReactMarkdown className='text'>{body}</ReactMarkdown>
             </article>
         );

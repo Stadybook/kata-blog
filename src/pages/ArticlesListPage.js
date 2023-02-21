@@ -8,7 +8,7 @@ function ArticleListPage({ history }) {
     return (
         <ArticleList
             onSelected={(articleId) => {
-                const newPath = `/articles/${articleId}`;
+                const newPath = `${articleId}`;
                 history.push(newPath);
             }}
         />

@@ -17,7 +17,7 @@ export default function PaginationFn() {
             onChange={(page) => dispatch(changePage(page))}
             defaultCurrent={1}
             current={pagginationPage}
-            total={articlesCount / 2}
+            total={articlesCount * 2}
             showSizeChanger={false}
             disabled={false}
         />

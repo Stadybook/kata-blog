@@ -1,11 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import Service from '../../service/Service';
 
+import { loadArticles, changingPage } from './types';
+
 const getInfo = new Service();
 
 export function getArticles(payload) {
     return {
-        type: 'load_articles',
+        type: loadArticles,
         payload,
     };
 }
@@ -18,7 +20,7 @@ export function asyncGetArticles(page) {
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error('Service Error: 500');
+                    throw new Error(`Service ${e.message}`);
                 }
             });
     };
@@ -26,7 +28,7 @@ export function asyncGetArticles(page) {
 
 export function changePage(payload) {
     return {
-        type: 'change_page',
+        type: changingPage,
         payload,
     };
 }

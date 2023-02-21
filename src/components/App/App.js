@@ -7,17 +7,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import './App.scss';
 
 import Header from '../Header';
-import ArticleList from '../ArticleList';
 import FullArticle from '../FullArticle';
-import AriclesListPage from '../../pages/AriclesListPage';
-import { asyncGetArticles } from '../../redux/actions/actions';
+import ArticleListPage from '../../pages/ArticlesListPage';
 
 export default function App() {
     return (
         <Router>
             <div className='container'>
                 <Header />
-                <Route path='/articles' exact component={AriclesListPage} />
+                <Route path='/articles/' exact component={ArticleListPage} />
                 <Route
                     path='/articles/:slug'
                     render={({ match }) => {

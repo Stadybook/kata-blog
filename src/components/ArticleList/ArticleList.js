@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { asyncGetArticles } from '../../redux/actions/actions';
 import PaginationFn from '../Pagination';
 import './ArticleList.scss';
-import Article from '../Article/Article';
+import Article from '../Article';
+import cuttingFn from '../helpFunctions/cuttingFn';
 
 export default function ArticleList(props) {
     const { onSelected } = props;
@@ -22,7 +23,14 @@ export default function ArticleList(props) {
     const elements = articles.map((item) => {
         // console.log(item);
         const { slug } = item;
-        return <Article key={slug} {...item} onSelected={onSelected} />;
+        return (
+            <Article
+                key={slug}
+                {...item}
+                onSelected={onSelected}
+                func={cuttingFn}
+            />
+        );
     });
     return (
         <>

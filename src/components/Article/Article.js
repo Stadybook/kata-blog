@@ -19,6 +19,7 @@ import like from './like.svg';
 
 export default function Article(props) {
     const {
+        func,
         title,
         description,
         body,
@@ -35,8 +36,12 @@ export default function Article(props) {
         if (tag.length === 0) {
             return;
         }
-        const words = cuttingFn(tag, 30);
-        return <Tag key={getId()}>{words}</Tag>;
+        const words = func(tag, 30);
+        return (
+            <Tag className={style.tag} key={getId()}>
+                {words}
+            </Tag>
+        );
     });
 
     // ???
@@ -53,7 +58,7 @@ export default function Article(props) {
                             onClick={() => onSelected(slug)}
                             className={style.title}
                         >
-                            {cuttingFn(title, 50)}
+                            {func(title, 50)}
                         </a>
                         <div className={style.likes}>
                             <div>
@@ -74,9 +79,7 @@ export default function Article(props) {
                     </div>
                 </div>
             </div>
-            <div className={style.description}>
-                {cuttingFn(description, 200)}
-            </div>
+            <div className={style.description}>{func(description, 200)}</div>
         </section>
     );
 }
