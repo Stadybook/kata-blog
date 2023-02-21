@@ -1,12 +1,17 @@
-/* eslint-disable array-callback-return */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
+
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
 
-import getId from '../hetpFunctions/getId';
+import cuttingFn from '../helpFunctions/cuttingFn';
+import getId from '../helpFunctions/getId';
 
 import style from './Article.module.scss';
 import defaultPhoto from './avatar.svg';
@@ -17,6 +22,8 @@ export default function Article(props) {
         title,
         description,
         body,
+        slug,
+        onSelected,
         createdAt,
         tagList,
         favoritesCount,
@@ -24,23 +31,30 @@ export default function Article(props) {
     } = props;
     const { image, username } = author;
 
-    // const tagsArray = tagList.join(' ');
     const tags = tagList.map((tag) => {
-        if (tag.length !== 0) {
-            return <Tag key={getId()}>{tag}</Tag>;
+        if (tag.length === 0) {
+            return;
         }
+        const words = cuttingFn(tag, 30);
+        return <Tag key={getId()}>{words}</Tag>;
     });
 
     // ???
-    const avatar = image !== null ? image : defaultPhoto;
+    const avatar = image !== undefined ? image : defaultPhoto;
 
     const createDate = format(new Date(createdAt), 'MMMM dd, yyyy');
+
     return (
-        <article>
+        <section>
             <div className={style.header}>
                 <div>
                     <div className={style.info}>
-                        <h5 className={style.title}>{title}</h5>
+                        <a
+                            onClick={() => onSelected(slug)}
+                            className={style.title}
+                        >
+                            {cuttingFn(title, 50)}
+                        </a>
                         <div className={style.likes}>
                             <div>
                                 <img src={like} alt='likes' />
@@ -60,7 +74,9 @@ export default function Article(props) {
                     </div>
                 </div>
             </div>
-            <div className={style.description}>{description}</div>
-        </article>
+            <div className={style.description}>
+                {cuttingFn(description, 200)}
+            </div>
+        </section>
     );
 }

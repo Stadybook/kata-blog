@@ -1,29 +1,34 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useEffect } from 'react';
+import './FullArticle.scss';
+import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 
+import { asyncGetArticles } from '../../redux/actions/actions';
 import Article from '../Article';
 
-export default function FullArticle() {
-    return (
-        <>
-            <Article />
-            <ReactMarkdown className='text'>
-                Est Ampyciden pater patent Amor saxa inpiger Lorem markdownum
-                Stygias neque is referam fudi, breve per. Et Achaica tamen:
-                nescia ista occupat, illum se ad potest humum et. Qua deos has
-                fontibus Recens nec ferro responsaque dedere armenti opes
-                momorderat pisce, vitataque et fugisse. Et iamque incipiens, qua
-                huius suo omnes ne pendentia citus pedum. Quamvis pronuba Ulli
-                labore facta. Io cervis non nosterque nullae, vides: aethere
-                Delphice subit, tamen Romane ob cubilia Rhodopen calentes
-                librata! Nihil populorum flava, inrita? Sit hic nunc, hoc formae
-                Esse illo? Umeris eram similis, crudelem de est relicto ingemuit
-                finiat Pelia uno cernunt Venus draconem, hic, Methymnaeae. 1.
-                Clamoribus haesit tenentem iube Haec munera 2. Vincla venae 3.
-                Paris includere etiam tamen 4. Superi te putria imagine Deianira
-                5. Tremore hoste Esse sed perstat capillis siqua
-            </ReactMarkdown>
-        </>
-    );
+export default function FullArticle(props) {
+    const dispatch = useDispatch();
+    const page = useSelector((state) => state.articlesReducer.page);
+    const articles = useSelector((state) => state.articlesReducer.articles);
+
+    useEffect(() => {
+        dispatch(asyncGetArticles(page));
+    }, []);
+
+    const { articleId } = props;
+    const item = articles.filter((article) => article.slug === articleId);
+
+    if (item[0] !== undefined) {
+        const { body } = item[0];
+        return (
+            <article>
+                <Article {...item[0]} />
+                <ReactMarkdown className='text'>{body}</ReactMarkdown>
+            </article>
+        );
+    }
 }

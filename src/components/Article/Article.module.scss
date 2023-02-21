@@ -1,11 +1,11 @@
-article{
+section{
     display: flex;
     flex-direction: column;
     background: #FFFFFF;
     width: 941px;
-    /* height: 870px;*/
     height: 140px;
     padding: 17px 0 0 19px;
+    box-sizing: border-box;
 }
 .header{
     display: flex;
@@ -33,6 +33,10 @@ article{
     height: 15px;
 }
 .title{
+    display: block;
+    max-width: 600px;
+    overflow: hidden;
+    word-break: break-word;
     font-size: 20px;
     line-height: 28px;
     display: flex;
@@ -70,9 +74,11 @@ article{
 }
 
 .description{
+    max-width: 600px;
+    max-height: 28px;
+    overflow: hidden;
     font-size: 12px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.5);
-    padding-right: 240px;
     margin-bottom: 25px;
 }

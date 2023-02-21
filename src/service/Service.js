@@ -15,8 +15,8 @@ export default class Service {
         }
     }
 
-    getArticles = async () => {
-        const url = `${baseURL}articles`;
+    getArticles = async (page) => {
+        const url = `${baseURL}articles?offset=${(page - 1) * 20}`;
         const body = await this.makeRequest(url);
         return body;
     };

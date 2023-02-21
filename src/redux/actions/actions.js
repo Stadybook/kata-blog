@@ -9,10 +9,10 @@ export function getArticles(payload) {
         payload,
     };
 }
-export function asyncGetArticles() {
+export function asyncGetArticles(page) {
     return (dispatch) => {
         getInfo
-            .getArticles()
+            .getArticles(page)
             .then((body) => {
                 dispatch(getArticles(body));
             })

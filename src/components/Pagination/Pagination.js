@@ -9,12 +9,15 @@ export default function PaginationFn() {
     const articlesCount = useSelector(
         (state) => state.articlesReducer.articlesCount
     );
+    const pagginationPage = useSelector((state) => state.articlesReducer.page);
+
     const dispatch = useDispatch();
     return (
         <Pagination
             onChange={(page) => dispatch(changePage(page))}
             defaultCurrent={1}
-            total={articlesCount}
+            current={pagginationPage}
+            total={articlesCount / 2}
             showSizeChanger={false}
             disabled={false}
         />

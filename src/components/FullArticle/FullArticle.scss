@@ -1,6 +1,17 @@
+
+article{
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    width: 941px;
+    margin-bottom: 60px;
+   
+}
 .text{
-    padding-right: 42px;
+    padding: 17px 42px 20px 19px;
     font-size: 20px;
     line-height: 28px;
     color: rgba(0, 0, 0, 0.75);
+    word-break: break-word;
+    overflow: hidden;
 }
