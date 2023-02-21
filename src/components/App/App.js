@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import './App.scss';
 
 import Header from '../Header';
+import SignUpPage from '../SignUpPage';
+import SignInPage from '../SignInPage';
 import FullArticle from '../FullArticle';
 import ArticleListPage from '../../pages/ArticlesListPage';
 
@@ -15,6 +17,8 @@ export default function App() {
         <Router>
             <div className='container'>
                 <Header />
+                <Route path='/sign-up' component={SignUpPage} />
+                <Route path='/sign-in' component={SignInPage} />
                 <Route path='/articles/' exact component={ArticleListPage} />
                 <Route
                     path='/articles/:slug'
