@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 
@@ -13,19 +12,19 @@ function SignUpPage() {
     const {
         register,
         handleSubmit,
-        watch,
+        getValues,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
     });
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => alert(data);
     return (
         <section className={style.container}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h5 className={style.title}>Create new account</h5>
                 <div className={style.inputs}>
-                    <label>
+                    <label htmlFor='username'>
                         Username
                         <input
                             className={errors?.username ? style.danger : null}
@@ -47,14 +46,14 @@ function SignUpPage() {
                         />
                     </label>
                     <p>{errors?.username?.message}</p>
-                    <label>
+                    <label htmlFor='email'>
                         Email address
                         <input
                             className={errors?.email ? style.danger : null}
                             {...register('email', {
                                 required: 'This is required.',
                                 pattern: {
-                                    value: '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$',
+                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                     message: 'Invalid Email',
                                 },
                             })}
@@ -62,7 +61,7 @@ function SignUpPage() {
                         />
                     </label>
                     <p>{errors?.email?.message}</p>
-                    <label>
+                    <label htmlFor='password'>
                         Password
                         <input
                             className={errors?.password ? style.danger : null}
@@ -85,7 +84,7 @@ function SignUpPage() {
 
                     <p>{errors?.password?.message}</p>
 
-                    <label>
+                    <label htmlFor='passwordRepeat'>
                         Repeat Password
                         <input
                             className={
@@ -94,6 +93,15 @@ function SignUpPage() {
                             placeholder='Password'
                             {...register('passwordRepeat', {
                                 required: 'This is required.',
+                                validate: {
+                                    matchesPreviousPassword: (value) => {
+                                        const { password } = getValues();
+                                        return (
+                                            password === value ||
+                                            'Passwords must match'
+                                        );
+                                    },
+                                },
                             })}
                         />
                     </label>

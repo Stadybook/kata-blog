@@ -12,7 +12,6 @@ function SignInPage() {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
@@ -54,7 +53,7 @@ function SignInPage() {
                             {...register('email', {
                                 required: 'This is required.',
                                 pattern: {
-                                    value: '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$',
+                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                                     message: 'Invalid Email',
                                 },
                             })}
@@ -65,17 +64,29 @@ function SignInPage() {
                     <label>
                         New password
                         <input
+                            className={errors?.password ? style.danger : null}
                             placeholder='Password'
                             {...register('password', {
                                 required: 'This is required.',
+                                minLength: {
+                                    value: 6,
+                                    message:
+                                        'Your password needs to be at least 6 characters.',
+                                },
+                                maxLength: {
+                                    value: 40,
+                                    message:
+                                        'Your password needs to be no more than 40 characters.',
+                                },
                             })}
                         />
                     </label>
+                    <p>{errors?.password?.message}</p>
                     <label>
                         Avatar image (url)
                         <input
                             placeholder='Avatar image'
-                            {...register('password', {})}
+                            {...register('avatar', {})}
                         />
                     </label>
                 </div>
