@@ -11,6 +11,7 @@ import SignUpPage from '../SignUpPage';
 import SignInPage from '../SignInPage';
 import FullArticle from '../FullArticle';
 import ArticleListPage from '../../pages/ArticlesListPage';
+import EditProfilePage from '../EditProfilePage';
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                 <Header />
                 <Route path='/sign-up' component={SignUpPage} />
                 <Route path='/sign-in' component={SignInPage} />
+                <Route path='/profile' component={EditProfilePage} />
                 <Route path='/articles/' exact component={ArticleListPage} />
                 <Route
                     path='/articles/:slug'

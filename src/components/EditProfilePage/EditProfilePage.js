@@ -4,10 +4,9 @@
 
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Button, Input } from 'antd';
 import { useForm } from 'react-hook-form';
 
-import style from './SignInPage.module.scss';
+import style from './EditProfilePage.module.scss';
 
 function SignInPage() {
     const {
@@ -24,9 +23,30 @@ function SignInPage() {
     return (
         <section className={style.container}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h5 className={style.title}>Sign In</h5>
-
+                <h5 className={style.title}>Edit Profile</h5>
                 <div className={style.inputs}>
+                    <label>
+                        Username
+                        <input
+                            className={errors?.username ? style.danger : null}
+                            {...register('username', {
+                                required: 'This is required.',
+                                pattern: /^[a-zA-Z0-9]+$/,
+                                minLength: {
+                                    value: 3,
+                                    message:
+                                        'Your username needs to be at least 3 characters.',
+                                },
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        'Your username needs to be no more than 20 characters.',
+                                },
+                            })}
+                            placeholder='Username'
+                        />
+                    </label>
+                    <p>{errors?.username?.message}</p>
                     <label>
                         Email address
                         <input
@@ -43,22 +63,23 @@ function SignInPage() {
                     </label>
                     <p>{errors?.email?.message}</p>
                     <label>
-                        Password
+                        New password
                         <input
-                            className={errors?.password ? style.danger : null}
                             placeholder='Password'
                             {...register('password', {
                                 required: 'This is required.',
                             })}
                         />
                     </label>
-                    <p>{errors?.password?.message}</p>
+                    <label>
+                        Avatar image (url)
+                        <input
+                            placeholder='Avatar image'
+                            {...register('password', {})}
+                        />
+                    </label>
                 </div>
-                <input className={style.btn} type='submit' value='Login' />
-                <span className={style.link}>
-                    Don’t have an account?
-                    <Link to='/sign-up'> Sign Up.</Link>
-                </span>
+                <input className={style.btn} type='submit' value='Save' />
             </form>
         </section>
     );
