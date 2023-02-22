@@ -1,19 +1,31 @@
 /* eslint-disable default-param-last */
+import { signUp, signIn, logOut, createArticle } from '../actions/types';
+
 const initialState = {
     sign: 'Sign Up',
 };
 
 const signReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'signIn':
+        case signIn:
             return {
                 ...state,
                 sign: 'Sign In',
             };
-        case 'signUp':
+        case signUp:
             return {
                 ...state,
                 sign: 'Sign Up',
+            };
+        case logOut:
+            return {
+                ...state,
+                sign: 'Log Out',
+            };
+        case createArticle:
+            return {
+                ...state,
+                sign: 'Create article',
             };
         default:
             return state;

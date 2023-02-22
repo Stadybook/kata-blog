@@ -10,12 +10,11 @@ import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
 
-import cuttingFn from '../helpFunctions/cuttingFn';
-import getId from '../helpFunctions/getId';
+import getId from '../../helpFunctions/getId';
+import defaultPhoto from '../../img/avatar.svg';
+import like from '../../img/like.svg';
 
 import style from './Article.module.scss';
-import defaultPhoto from './avatar.svg';
-import like from './like.svg';
 
 export default function Article(props) {
     const {

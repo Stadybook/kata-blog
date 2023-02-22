@@ -7,7 +7,7 @@ import { asyncGetArticles } from '../../redux/actions/actions';
 import PaginationFn from '../Pagination';
 import './ArticleList.scss';
 import Article from '../Article';
-import cuttingFn from '../helpFunctions/cuttingFn';
+import cuttingFn from '../../helpFunctions/cuttingFn';
 
 export default function ArticleList(props) {
     const { onSelected } = props;

@@ -4,8 +4,10 @@
 
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { Button, Input } from 'antd';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+
+import { asyncLodIn } from '../../redux/actions/actions';
 
 import style from './SignInPage.module.scss';
 
@@ -19,7 +21,11 @@ function SignInPage() {
         mode: 'onBlur',
     });
 
-    const onSubmit = (data) => console.log(data);
+    const dispatch = useDispatch();
+
+    const onSubmit = (data) => {
+        dispatch(asyncLodIn(data));
+    };
 
     return (
         <section className={style.container}>

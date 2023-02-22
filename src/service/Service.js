@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 const baseURL = 'https://blog.kata.academy/api/';
 export default class Service {
@@ -19,5 +20,48 @@ export default class Service {
         const url = `${baseURL}articles?limit=5&offset=${(page - 1) * 5}`;
         const body = await this.makeRequest(url);
         return body;
+    };
+
+    postUser = async ({ username, email, password }) => {
+        try {
+            const url = `${baseURL}users`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user: {
+                        username,
+                        email,
+                        password,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+            return data.user;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
+    };
+
+    userLogin = async ({ email, password }) => {
+        try {
+            const url = `${baseURL}users/login`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user: {
+                        email,
+                        password,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+            return data.user;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
     };
 }

@@ -5,6 +5,9 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
+import { asyncCreateUser } from '../../redux/actions/actions';
 
 import style from './SignUpPage.module.scss';
 
@@ -18,7 +21,12 @@ function SignUpPage() {
         mode: 'onBlur',
     });
 
-    const onSubmit = (data) => alert(data);
+    const dispatch = useDispatch();
+
+    const onSubmit = (data) => {
+        dispatch(asyncCreateUser(data));
+    };
+
     return (
         <section className={style.container}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,3 +134,7 @@ function SignUpPage() {
 }
 
 export default withRouter(SignUpPage);
+
+/* <label htmlFor='checkbox'>
+     I agree to the processing of my personal information
+</label> */

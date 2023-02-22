@@ -86,7 +86,9 @@ function SignInPage() {
                         Avatar image (url)
                         <input
                             placeholder='Avatar image'
-                            {...register('avatar', {})}
+                            {...register('avatar', {
+                                // pattern:
+                            })}
                         />
                     </label>
                 </div>
