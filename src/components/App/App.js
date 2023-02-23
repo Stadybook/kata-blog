@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 
 import './App.scss';
 
@@ -12,6 +11,7 @@ import SignInPage from '../SignInPage';
 import FullArticle from '../FullArticle';
 import ArticleListPage from '../../pages/ArticlesListPage';
 import EditProfilePage from '../EditProfilePage';
+import CreateArticle from '../CreateArticle';
 
 export default function App() {
     return (
@@ -21,6 +21,7 @@ export default function App() {
                 <Route path='/sign-up' component={SignUpPage} />
                 <Route path='/sign-in' component={SignInPage} />
                 <Route path='/profile' component={EditProfilePage} />
+                <Route path='/new-article' component={CreateArticle} />
                 <Route path='/articles/' exact component={ArticleListPage} />
                 <Route
                     path='/articles/:slug'

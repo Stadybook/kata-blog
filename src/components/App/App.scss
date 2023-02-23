@@ -8,6 +8,9 @@ h1, h2, h3, h4, h5, h6, p, ul, li
 	font: inherit;
 	vertical-align: baseline;
 }
+ul {
+    list-style-type: none;
+}
 
 a{
 	text-decoration: none;
@@ -16,7 +19,7 @@ a:hover, a:focus{
 	cursor: pointer;
 }
 
-button, input{
+button, input, textarea{
     background: none;
 	color: inherit;
 	border: none;

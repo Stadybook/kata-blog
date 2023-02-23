@@ -3,10 +3,12 @@ header{
     height: 80px;
     width: 100%;
     margin-bottom: 24px;
-
+}
+.navigation{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
 }
 
 .title{

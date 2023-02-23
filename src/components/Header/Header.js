@@ -24,86 +24,98 @@ export default function Header() {
     }
     const dispatch = useDispatch();
     const withOutAuthentication = (
-        <div className={style.btns}>
-            <Link
-                to='/sign-in'
-                className={
-                    sign === 'Sign In' || sign === 'Log Out'
-                        ? `${style.btn} ${style.active}`
-                        : `${style.btn}`
-                }
-                onClick={() => dispatch(accountLogin())}
-            >
-                Sign In
-            </Link>
-            <Link
-                to='/sign-up'
-                className={
-                    sign === 'Sign Up'
-                        ? `${style.btn} ${style.active}`
-                        : `${style.btn}`
-                }
-                onClick={() => dispatch(accountCreate())}
-            >
-                Sign Up
-            </Link>
-        </div>
+        <ul className={style.btns}>
+            <li>
+                <Link
+                    to='/sign-in'
+                    className={
+                        sign === 'Sign In' || sign === 'Log Out'
+                            ? `${style.btn} ${style.active}`
+                            : `${style.btn}`
+                    }
+                    onClick={() => dispatch(accountLogin())}
+                >
+                    Sign In
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to='/sign-up'
+                    className={
+                        sign === 'Sign Up'
+                            ? `${style.btn} ${style.active}`
+                            : `${style.btn}`
+                    }
+                    onClick={() => dispatch(accountCreate())}
+                >
+                    Sign Up
+                </Link>
+            </li>
+        </ul>
     );
 
     const withAuthentication = (
-        <div className={style.btns}>
-            <Link
-                to='/'
-                className={
-                    sign === 'Create article'
-                        ? `${style.btn} ${style.active}`
-                        : `${style.btn}`
-                }
-                onClick={() => dispatch(articleCreate())}
-            >
-                Create article
-            </Link>
-            <Link to='/profile'>
-                <div className={style.profile}>
-                    <span>
-                        {user !== null && user !== undefined
-                            ? user.username
-                            : ''}
-                    </span>
-                    <div className={style.avatar}>
-                        <img
-                            src={
-                                user !== null && user !== undefined
-                                    ? user.image
-                                    : defaultPhoto
-                            }
-                            alt='avatar'
-                        />
+        <ul className={style.btns}>
+            <li>
+                <Link
+                    to='/new-article'
+                    className={
+                        sign === 'Create article'
+                            ? `${style.btn} ${style.active}`
+                            : `${style.btn}`
+                    }
+                    onClick={() => dispatch(articleCreate())}
+                >
+                    Create article
+                </Link>
+            </li>
+            <li>
+                <Link to='/profile'>
+                    <div className={style.profile}>
+                        <span>
+                            {user !== null && user !== undefined
+                                ? user.username
+                                : ''}
+                        </span>
+                        <div className={style.avatar}>
+                            <img
+                                src={
+                                    user !== null && user !== undefined
+                                        ? user.image
+                                        : defaultPhoto
+                                }
+                                alt='avatar'
+                            />
+                        </div>
                     </div>
-                </div>
-            </Link>
-            <Link
-                to='/sign-in'
-                className={
-                    sign === 'Log Out'
-                        ? `${style.btn} ${style.active}`
-                        : `${style.btn}`
-                }
-                onClick={() => dispatch(accountLoginOut())}
-            >
-                Log Out
-            </Link>
-        </div>
+                </Link>
+            </li>
+            <li>
+                <Link
+                    to='/sign-in'
+                    className={
+                        sign === 'Log Out'
+                            ? `${style.btn} ${style.active}`
+                            : `${style.btn}`
+                    }
+                    onClick={() => dispatch(accountLoginOut())}
+                >
+                    Log Out
+                </Link>
+            </li>
+        </ul>
     );
 
     return (
         <header>
-            <Link to='/articles/' className={style.title}>
-                Realworld Blog
-            </Link>
-            {user === null || user === undefined
-                ? withOutAuthentication
-                : withAuthentication}
+            <nav className={style.navigation}>
+                <Link to='/articles/' className={style.title}>
+                    Realworld Blog
+                </Link>
+                {user === null || user === undefined
+                    ? withOutAuthentication
+                    : withAuthentication}
+            </nav>
         </header>
     );
 }
