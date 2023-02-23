@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 
@@ -16,6 +17,7 @@ function SignUpPage() {
         register,
         handleSubmit,
         getValues,
+        reset,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
@@ -25,6 +27,7 @@ function SignUpPage() {
 
     const onSubmit = (data) => {
         dispatch(asyncCreateUser(data));
+        reset();
     };
 
     return (
@@ -38,7 +41,11 @@ function SignUpPage() {
                             className={errors?.username ? style.danger : null}
                             {...register('username', {
                                 required: 'This is required.',
-                                pattern: /^[a-zA-Z0-9]+$/,
+                                pattern: {
+                                    value: /^[a-z][a-z0-9]*$/,
+                                    message:
+                                        'You can only use lowercase English letters and numbers',
+                                },
                                 minLength: {
                                     value: 3,
                                     message:
@@ -61,7 +68,7 @@ function SignUpPage() {
                             {...register('email', {
                                 required: 'This is required.',
                                 pattern: {
-                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/,
                                     message: 'Invalid Email',
                                 },
                             })}
@@ -72,6 +79,7 @@ function SignUpPage() {
                     <label htmlFor='password'>
                         Password
                         <input
+                            type='password'
                             className={errors?.password ? style.danger : null}
                             placeholder='Password'
                             {...register('password', {
@@ -95,6 +103,7 @@ function SignUpPage() {
                     <label htmlFor='passwordRepeat'>
                         Repeat Password
                         <input
+                            type='password'
                             className={
                                 errors?.passwordRepeat ? style.danger : null
                             }
@@ -115,13 +124,17 @@ function SignUpPage() {
                     </label>
                     <p>{errors?.passwordRepeat?.message}</p>
                 </div>
-                <Checkbox
+                <input
+                    type='checkbox'
+                    id='checkbox'
+                    className={style.toggle}
                     {...register('checkbox', {
                         required: 'This is required.',
                     })}
-                >
+                />
+                <label className={style.label} htmlFor='checkbox'>
                     I agree to the processing of my personal information
-                </Checkbox>
+                </label>
                 <p>{errors.checkbox?.message}</p>
                 <input className={style.btn} type='submit' value='Create' />
                 <p className={style.link}>
@@ -134,7 +147,3 @@ function SignUpPage() {
 }
 
 export default withRouter(SignUpPage);
-
-/* <label htmlFor='checkbox'>
-     I agree to the processing of my personal information
-</label> */

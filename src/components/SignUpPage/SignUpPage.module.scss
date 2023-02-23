@@ -58,6 +58,37 @@
     color: #F5222D;
 }
 
+ .toggle {
+	text-align: center;
+	height: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	border: none;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	opacity: 0;
+	+ {
+		label {
+			background-image: url('./Form.svg');
+			background-repeat: no-repeat;
+			background-position: center left;
+		}
+	}
+	&:checked {
+		+ {
+			label {
+				background-image: url('./Checkbox.svg');
+			}
+		}
+	}
+}
+.label {
+		padding-left: 30px;
+}
+
 .btn{
     color:#FFFFFF;
     width: 319px;

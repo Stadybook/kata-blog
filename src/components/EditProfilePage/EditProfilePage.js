@@ -5,19 +5,39 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { asyncEditProfile } from '../../redux/actions/actions';
 
 import style from './EditProfilePage.module.scss';
 
-function SignInPage() {
+function EditProfilePage() {
+    let user = useSelector((state) => state.userReducer.user);
+
+    if (user !== null) {
+        user = sessionStorage.getItem('user');
+        user = JSON.parse(user);
+    }
+
+    const { username, email, token } = user;
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
+        defaultValues: {
+            username,
+            email,
+        },
     });
 
-    const onSubmit = (data) => console.log(data);
+    const dispatch = useDispatch();
+    const onSubmit = (data) => {
+        dispatch(asyncEditProfile(data, token));
+        reset();
+    };
 
     return (
         <section className={style.container}>
@@ -49,6 +69,7 @@ function SignInPage() {
                     <label>
                         Email address
                         <input
+                            type='email'
                             className={errors?.email ? style.danger : null}
                             {...register('email', {
                                 required: 'This is required.',
@@ -64,6 +85,7 @@ function SignInPage() {
                     <label>
                         New password
                         <input
+                            type='password'
                             className={errors?.password ? style.danger : null}
                             placeholder='Password'
                             {...register('password', {
@@ -86,7 +108,7 @@ function SignInPage() {
                         Avatar image (url)
                         <input
                             placeholder='Avatar image'
-                            {...register('avatar', {
+                            {...register('image', {
                                 // pattern:
                             })}
                         />
@@ -98,4 +120,4 @@ function SignInPage() {
     );
 }
 
-export default withRouter(SignInPage);
+export default withRouter(EditProfilePage);

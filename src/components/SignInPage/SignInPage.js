@@ -15,7 +15,7 @@ function SignInPage() {
     const {
         register,
         handleSubmit,
-        watch,
+        reset,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
@@ -25,6 +25,7 @@ function SignInPage() {
 
     const onSubmit = (data) => {
         dispatch(asyncLodIn(data));
+        reset();
     };
 
     return (
@@ -51,6 +52,7 @@ function SignInPage() {
                     <label>
                         Password
                         <input
+                            type='password'
                             className={errors?.password ? style.danger : null}
                             placeholder='Password'
                             {...register('password', {

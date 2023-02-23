@@ -9,6 +9,7 @@ import {
     logOut,
     createArticle,
     createAccount,
+    editAccount,
 } from './types';
 
 const getInfo = new Service();
@@ -65,7 +66,7 @@ export function changePage(payload) {
     };
 }
 
-export function createUser(payload) {
+function createUser(payload) {
     return {
         type: createAccount,
         payload,
@@ -77,6 +78,7 @@ export function asyncCreateUser(data) {
         getInfo
             .postUser(data)
             .then((body) => {
+                sessionStorage.setItem('user', JSON.stringify(body));
                 dispatch(createUser(body));
             })
             .catch((e) => {
@@ -87,7 +89,7 @@ export function asyncCreateUser(data) {
     };
 }
 
-export function logIn(payload) {
+function logIn(payload) {
     return {
         type: createAccount,
         payload,
@@ -99,7 +101,32 @@ export function asyncLodIn(data) {
         getInfo
             .userLogin(data)
             .then((body) => {
+                // console.log(body.username)
+                sessionStorage.setItem('user', JSON.stringify(body));
                 dispatch(logIn(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+function editProfile(payload) {
+    return {
+        type: editAccount,
+        payload,
+    };
+}
+
+export function asyncEditProfile(data, token) {
+    return (dispatch) => {
+        getInfo
+            .updateUser(data, token)
+            .then((body) => {
+                sessionStorage.setItem('user', JSON.stringify(body));
+                dispatch(editProfile(body));
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

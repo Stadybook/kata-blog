@@ -64,4 +64,31 @@ export default class Service {
             throw new Error(`Service ${e.message}`);
         }
     };
+
+    updateUser = async (user, token) => {
+        const { username, email, password, image } = user;
+        try {
+            const url = `${baseURL}user`;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    user: {
+                        email,
+                        password,
+                        username,
+                        image,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+            return data.user;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
+    };
 }

@@ -16,9 +16,13 @@ import style from './Header.module.scss';
 
 export default function Header() {
     const sign = useSelector((state) => state.signReducer.sign);
-    const user = useSelector((state) => state.userReducer.user);
-    const dispatch = useDispatch();
+    let user = useSelector((state) => state.userReducer.user);
 
+    if (user !== null) {
+        user = sessionStorage.getItem('user');
+        user = JSON.parse(user);
+    }
+    const dispatch = useDispatch();
     const withOutAuthentication = (
         <div className={style.btns}>
             <Link
@@ -61,9 +65,9 @@ export default function Header() {
             </Link>
             <Link to='/profile'>
                 <div className={style.profile}>
-                    <span>Name</span>
+                    <span>{user.username}</span>
                     <div className={style.avatar}>
-                        <img src={defaultPhoto} alt='avatar' />
+                        <img src={user.image || defaultPhoto} alt='avatar' />
                     </div>
                 </div>
             </Link>
