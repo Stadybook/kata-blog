@@ -38,8 +38,12 @@ export default class Service {
             });
 
             const data = await response.json();
+            if (response.status === 422) {
+                alert('username or email is already taken');
+            }
             return data.user;
         } catch (e) {
+            console.log(e.message);
             throw new Error(`Service ${e.message}`);
         }
     };
@@ -59,6 +63,10 @@ export default class Service {
             });
 
             const data = await response.json();
+            console.log(data.user);
+            if (response.status === 422) {
+                alert('email or password is invalid');
+            }
             return data.user;
         } catch (e) {
             throw new Error(`Service ${e.message}`);

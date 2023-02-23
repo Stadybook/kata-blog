@@ -18,7 +18,7 @@ export default function Header() {
     const sign = useSelector((state) => state.signReducer.sign);
     let user = useSelector((state) => state.userReducer.user);
 
-    if (user !== null) {
+    if (user === null) {
         user = sessionStorage.getItem('user');
         user = JSON.parse(user);
     }
@@ -28,7 +28,7 @@ export default function Header() {
             <Link
                 to='/sign-in'
                 className={
-                    sign === 'Sign In'
+                    sign === 'Sign In' || sign === 'Log Out'
                         ? `${style.btn} ${style.active}`
                         : `${style.btn}`
                 }
@@ -65,9 +65,20 @@ export default function Header() {
             </Link>
             <Link to='/profile'>
                 <div className={style.profile}>
-                    <span>{user.username}</span>
+                    <span>
+                        {user !== null && user !== undefined
+                            ? user.username
+                            : ''}
+                    </span>
                     <div className={style.avatar}>
-                        <img src={user.image || defaultPhoto} alt='avatar' />
+                        <img
+                            src={
+                                user !== null && user !== undefined
+                                    ? user.image
+                                    : defaultPhoto
+                            }
+                            alt='avatar'
+                        />
                     </div>
                 </div>
             </Link>
@@ -90,7 +101,9 @@ export default function Header() {
             <Link to='/articles/' className={style.title}>
                 Realworld Blog
             </Link>
-            {user === null ? withOutAuthentication : withAuthentication}
+            {user === null || user === undefined
+                ? withOutAuthentication
+                : withAuthentication}
         </header>
     );
 }

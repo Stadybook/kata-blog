@@ -14,6 +14,7 @@ export default function PaginationFn() {
     const dispatch = useDispatch();
     return (
         <Pagination
+            className='pagination'
             onChange={(page) => dispatch(changePage(page))}
             defaultCurrent={1}
             current={pagginationPage}

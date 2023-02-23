@@ -27,6 +27,7 @@ export function accountCreate() {
 }
 
 export function accountLoginOut() {
+    sessionStorage.removeItem('user');
     return {
         type: logOut,
     };
@@ -101,7 +102,6 @@ export function asyncLodIn(data) {
         getInfo
             .userLogin(data)
             .then((body) => {
-                // console.log(body.username)
                 sessionStorage.setItem('user', JSON.stringify(body));
                 dispatch(logIn(body));
             })

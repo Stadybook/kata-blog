@@ -2,7 +2,7 @@
 import { signUp, signIn, logOut, createArticle } from '../actions/types';
 
 const initialState = {
-    sign: 'Sign Up',
+    sign: '',
 };
 
 const signReducer = (state = initialState, action) => {

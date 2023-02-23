@@ -1,5 +1,5 @@
 /* eslint-disable default-param-last */
-import { editAccount, createAccount } from '../actions/types';
+import { editAccount, createAccount, logOut } from '../actions/types';
 
 const initialState = {
     user: sessionStorage.getItem('user'),
@@ -18,6 +18,12 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: { ...action.payload },
             };
+        case logOut:
+            return {
+                ...state,
+                user: null,
+            };
+
         default:
             return state;
     }
