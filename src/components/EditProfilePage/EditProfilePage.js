@@ -14,7 +14,7 @@ import style from './EditProfilePage.module.scss';
 function EditProfilePage() {
     let user = useSelector((state) => state.userReducer.user);
 
-    if (user !== null) {
+    if (user === null) {
         user = sessionStorage.getItem('user');
         user = JSON.parse(user);
     }
@@ -74,7 +74,7 @@ function EditProfilePage() {
                             {...register('email', {
                                 required: 'This is required.',
                                 pattern: {
-                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                                     message: 'Invalid Email',
                                 },
                             })}
