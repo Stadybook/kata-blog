@@ -1,5 +1,6 @@
 export const loadArticles = 'load_articles';
 export const loadfullArticle = 'load_full_articles';
+// export const deleteArticle =
 export const changingPage = 'change_page';
 export const signIn = 'sign_in';
 export const signUp = 'sign_up';

@@ -28,6 +28,22 @@ export default class Service {
         return body.article;
     };
 
+    deleteArticle = async (slug, token) => {
+        const url = `${baseURL}articles/${slug}`;
+        await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                slug,
+            }),
+        }).catch((err) => {
+            throw new Error('unsuccessful fetch request', err.message);
+        });
+    };
+
     postUser = async ({ username, email, password }) => {
         try {
             const url = `${baseURL}users`;

@@ -77,7 +77,7 @@ section{
     display:block;
     max-width: 46px;
 }
-.ttt{
+.block{
     position: relative;
 }
 
@@ -89,27 +89,4 @@ section{
     line-height: 22px;
     color: rgba(0, 0, 0, 0.5);
     margin-bottom: 25px;
-}
-
-.group{
-    display: flex;
-    gap:12px;
-    position: absolute;
-    right: 30px;
-    top:0px;
-    
-}
-.delete{
-    border: 1px solid #F5222D;
-    border-radius: 5px;
-    width: 65px;
-    height: 31px;
-    color: #F5222D;
-}
-.edit{
-    border: 1px solid #52C41A;
-    border-radius: 5px;
-    width: 65px;
-    height: 31px;
-    color: #52C41A;
 }

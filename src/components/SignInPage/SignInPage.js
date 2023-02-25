@@ -7,10 +7,15 @@ import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { message } from 'antd';
 
 import { asyncLodIn } from '../../redux/actions/actions';
 
 import style from './SignInPage.module.scss';
+
+const confirm = () => {
+    message.info('welcome to your account');
+};
 
 function SignInPage() {
     const user = useSelector((state) => state.userReducer.user);
@@ -28,6 +33,7 @@ function SignInPage() {
         const onSubmit = (data) => {
             dispatch(asyncLodIn(data));
             reset();
+            confirm();
         };
 
         return (

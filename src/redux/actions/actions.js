@@ -41,6 +41,27 @@ export function articleCreate() {
     };
 }
 
+function articleDelete() {
+    return {
+        type: 'delete_article',
+    };
+}
+
+export function asyncDeleteArticles(slug, token) {
+    return (dispatch) => {
+        getInfo
+            .deleteArticle(slug, token)
+            .then((body) => {
+                dispatch(articleDelete(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
 function getArticles(payload) {
     return {
         type: loadArticles,

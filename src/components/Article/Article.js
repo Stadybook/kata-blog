@@ -11,15 +11,22 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
-
+import { useSelector, useDispatch } from 'react-redux';
 
 import getId from '../../helpFunctions/getId';
 import defaultPhoto from '../../img/avatar.svg';
 import like from '../../img/like.svg';
+import Buttons from '../Buttons';
 
 import style from './Article.module.scss';
 
 export default function Article(props) {
+    const user = useSelector((state) => state.userReducer.user);
+    let authorizationPerson = false;
+    if(user !== undefined && user !== null){
+         authorizationPerson = user.username
+    }
+ 
     const {
         func,
         title,
@@ -34,20 +41,6 @@ export default function Article(props) {
     } = props;
    
     const { image, username } = author;
-    
-    
-        const btns = (
-            <div className={style.group}>
-                <button type='button' className={style.delete}>
-                    Delete
-                </button>
-                <button type='button' className={style.edit}>
-                    Edit
-                </button>
-            </div>
-        );
-    
-    
 
     const tags = tagList.map((tag) => {
         if (tag.length === 0) {
@@ -96,11 +89,11 @@ export default function Article(props) {
                     </div>
                 </div>
             </div>
-            <div className={style.ttt}>
+            <div className={style.block}>
                 <div className={style.description}>
                     {func(description, 200)}
                 </div>
-                {full? btns : null}
+                {full && authorizationPerson === username? <Buttons /> : null}
             </div>
         </section>
     );
