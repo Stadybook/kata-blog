@@ -20,6 +20,7 @@ export default function App() {
             <div className='container'>
                 <Header />
                 <Switch>
+                    <Route path='/' exact />
                     <Route path='/sign-up' component={SignUpPage} />
                     <Route path='/sign-in' component={SignInPage} />
                     <Route path='/profile' component={EditProfilePage} />
