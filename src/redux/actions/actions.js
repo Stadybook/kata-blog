@@ -10,6 +10,7 @@ import {
     createArticle,
     createAccount,
     editAccount,
+    newArticle,
 } from './types';
 
 const getInfo = new Service();
@@ -127,6 +128,28 @@ export function asyncEditProfile(data, token) {
             .then((body) => {
                 sessionStorage.setItem('user', JSON.stringify(body));
                 dispatch(editProfile(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+function addArticle(payload) {
+    return {
+        type: newArticle,
+        payload,
+    };
+}
+
+export function asyncAddArticle(data, token, tags) {
+    return (dispatch) => {
+        getInfo
+            .createArticle(data, token, tags)
+            .then((body) => {
+                dispatch(addArticle(body));
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

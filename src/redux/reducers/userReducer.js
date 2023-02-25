@@ -2,7 +2,7 @@
 import { editAccount, createAccount, logOut } from '../actions/types';
 
 const initialState = {
-    user: sessionStorage.getItem('user'),
+    user: JSON.parse(sessionStorage.getItem('user')),
 };
 
 const userReducer = (state = initialState, action) => {

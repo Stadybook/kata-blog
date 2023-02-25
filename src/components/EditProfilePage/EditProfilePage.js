@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,11 +13,10 @@ import { asyncEditProfile } from '../../redux/actions/actions';
 import style from './EditProfilePage.module.scss';
 
 function EditProfilePage() {
-    let user = useSelector((state) => state.userReducer.user);
+    const user = useSelector((state) => state.userReducer.user);
 
-    if (user === null) {
-        user = sessionStorage.getItem('user');
-        user = JSON.parse(user);
+    if (user === undefined || user === null) {
+        return <Redirect to='/sign-in' />;
     }
 
     const { username, email, token } = user;

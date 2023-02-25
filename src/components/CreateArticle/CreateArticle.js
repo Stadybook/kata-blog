@@ -1,16 +1,26 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-undef */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Tag } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { asyncAddArticle } from '../../redux/actions/actions';
 import getId from '../../helpFunctions/getId';
 
 import style from './CreateArticle.module.scss';
 
 function CreateArticle() {
+    const user = useSelector((state) => state.userReducer.user);
+
+    if (user === undefined || user === null) {
+        return <Redirect to='/sign-in' />;
+    }
+
+    const { token } = user;
     const {
         register,
         handleSubmit,
@@ -20,14 +30,17 @@ function CreateArticle() {
         mode: 'onBlur',
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // dispatch(asyncEditProfile(data, token));
-        reset();
-    };
-
+    const dispatch = useDispatch();
     const [tagList, setTagList] = useState([]);
     const [tagValue, setTagValue] = useState({ name: '', id: '' });
+    const onSubmit = (data) => {
+        const tagsArr = [];
+        tagList.map((el) => {
+            tagsArr.push(el.name);
+        });
+        dispatch(asyncAddArticle(data, token, tagsArr));
+        reset();
+    };
 
     const onDelete = (id) => {
         const index = tagList.findIndex((el) => el.id === id);
@@ -96,12 +109,12 @@ function CreateArticle() {
                     />
                 </label>
                 <p>{errors?.description?.message}</p>
-                <label htmlFor='text'>
+                <label htmlFor='body'>
                     <span> Text</span>
                     <textarea
                         type='text'
                         className={errors?.title ? style.danger : null}
-                        {...register('text', {
+                        {...register('body', {
                             required: 'This is required.',
                         })}
                         placeholder='Text'

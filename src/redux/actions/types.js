@@ -6,3 +6,4 @@ export const logOut = 'log_out';
 export const createArticle = 'create_article';
 export const createAccount = 'create_user';
 export const editAccount = 'edit_user';
+export const newArticle = 'new_article';

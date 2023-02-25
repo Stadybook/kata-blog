@@ -43,7 +43,6 @@ export default class Service {
             }
             return data.user;
         } catch (e) {
-            console.log(e.message);
             throw new Error(`Service ${e.message}`);
         }
     };
@@ -63,7 +62,6 @@ export default class Service {
             });
 
             const data = await response.json();
-            console.log(data.user);
             if (response.status === 422) {
                 alert('email or password is invalid');
             }
@@ -95,6 +93,33 @@ export default class Service {
 
             const data = await response.json();
             return data.user;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
+    };
+
+    createArticle = async (article, token, tagList) => {
+        const { title, description, body } = article;
+        try {
+            const url = `${baseURL}articles`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    article: {
+                        title,
+                        description,
+                        body,
+                        tagList,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+            return data.article;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
         }
