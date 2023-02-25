@@ -31,9 +31,8 @@ export default function App() {
                     />
                     <Route
                         path='/articles/:slug'
-                        render={({ match }) => {
-                            const { slug } = match.params;
-                            return <FullArticle articleId={slug} />;
+                        render={({ history }) => {
+                            return <FullArticle />;
                         }}
                     />
                     <Route component={NotFound} />

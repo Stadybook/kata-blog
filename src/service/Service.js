@@ -22,6 +22,12 @@ export default class Service {
         return body;
     };
 
+    getFullArticle = async (slug) => {
+        const url = `${baseURL}articles/${slug}`;
+        const body = await this.makeRequest(url);
+        return body.article;
+    };
+
     postUser = async ({ username, email, password }) => {
         try {
             const url = `${baseURL}users`;

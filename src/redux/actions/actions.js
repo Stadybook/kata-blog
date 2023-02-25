@@ -3,6 +3,7 @@ import Service from '../../service/Service';
 
 import {
     loadArticles,
+    loadfullArticle,
     changingPage,
     signIn,
     signUp,
@@ -40,18 +41,41 @@ export function articleCreate() {
     };
 }
 
-export function getArticles(payload) {
+function getArticles(payload) {
     return {
         type: loadArticles,
         payload,
     };
 }
+
 export function asyncGetArticles(page) {
     return (dispatch) => {
         getInfo
             .getArticles(page)
             .then((body) => {
                 dispatch(getArticles(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+function getFullArticle(payload) {
+    return {
+        type: loadfullArticle,
+        payload,
+    };
+}
+
+export function asyncGetFullArticle(slug) {
+    return (dispatch) => {
+        getInfo
+            .getFullArticle(slug)
+            .then((body) => {
+                dispatch(getFullArticle(body));
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

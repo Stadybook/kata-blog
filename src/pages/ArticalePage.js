@@ -2,7 +2,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-// import Article from "../components/Article";
 import FullArticle from '../components/FullArticle';
 
 function ArticlePage() {

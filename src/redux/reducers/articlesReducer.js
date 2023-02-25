@@ -1,11 +1,17 @@
 /* eslint-disable default-param-last */
-import { changingPage, loadArticles, newArticle } from '../actions/types';
+import {
+    changingPage,
+    loadArticles,
+    newArticle,
+    loadfullArticle,
+} from '../actions/types';
 
 const initialState = {
     articles: [],
     articlesCount: 0,
     page: 1,
     loading: true,
+    fullArticle: null,
     // createArticles: [],
 };
 
@@ -22,6 +28,12 @@ const articlesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 page: action.payload,
+                loading: false,
+            };
+        case loadfullArticle:
+            return {
+                ...state,
+                fullArticle: action.payload,
                 loading: false,
             };
         case newArticle: //  add article

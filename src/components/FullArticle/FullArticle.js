@@ -6,31 +6,33 @@ import React, { useEffect } from 'react';
 import './FullArticle.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
+import { useParams } from 'react-router-dom';
 
-import { asyncGetArticles } from '../../redux/actions/actions';
+import { asyncGetFullArticle } from '../../redux/actions/actions';
 import Article from '../Article';
 
-export default function FullArticle(props) {
+export default function FullArticle() {
     const dispatch = useDispatch();
-    const page = useSelector((state) => state.articlesReducer.page);
-    const articles = useSelector((state) => state.articlesReducer.articles);
+    const fullArticle = useSelector(
+        (state) => state.articlesReducer.fullArticle
+    );
+    const { slug } = useParams();
 
     useEffect(() => {
-        dispatch(asyncGetArticles(page));
+        dispatch(asyncGetFullArticle(slug));
     }, []);
 
-    const { articleId } = props;
-    const item = articles.filter((article) => article.slug === articleId);
+    if (fullArticle !== null) {
+        const { body } = fullArticle;
 
-    if (item[0] !== undefined) {
-        const { body } = item[0];
         return (
             <article>
                 <Article
-                    {...item[0]}
+                    {...fullArticle}
                     func={(text) => {
                         return text;
                     }}
+                    full
                 />
                 <ReactMarkdown className='text'>{body}</ReactMarkdown>
             </article>

@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -10,6 +12,7 @@ import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
 
+
 import getId from '../../helpFunctions/getId';
 import defaultPhoto from '../../img/avatar.svg';
 import like from '../../img/like.svg';
@@ -21,15 +24,30 @@ export default function Article(props) {
         func,
         title,
         description,
-        body,
         slug,
         onSelected,
         createdAt,
         tagList,
         favoritesCount,
         author,
+        full
     } = props;
+   
     const { image, username } = author;
+    
+    
+        const btns = (
+            <div className={style.group}>
+                <button type='button' className={style.delete}>
+                    Delete
+                </button>
+                <button type='button' className={style.edit}>
+                    Edit
+                </button>
+            </div>
+        );
+    
+    
 
     const tags = tagList.map((tag) => {
         if (tag.length === 0) {
@@ -78,7 +96,12 @@ export default function Article(props) {
                     </div>
                 </div>
             </div>
-            <div className={style.description}>{func(description, 200)}</div>
+            <div className={style.ttt}>
+                <div className={style.description}>
+                    {func(description, 200)}
+                </div>
+                {full? btns : null}
+            </div>
         </section>
     );
 }
