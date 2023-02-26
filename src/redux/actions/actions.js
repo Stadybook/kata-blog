@@ -35,6 +35,13 @@ export function accountLoginOut() {
     };
 }
 
+export function cleanUserError() {
+    console.log('action cleanUserError');
+    return {
+        type: 'clean_user_error',
+    };
+}
+
 export function articleCreate() {
     return {
         type: createArticle,
@@ -113,6 +120,13 @@ export function changePage(payload) {
     };
 }
 
+function getUserError(payload) {
+    return {
+        type: 'user_error',
+        payload,
+    };
+}
+
 function createUser(payload) {
     return {
         type: createAccount,
@@ -125,8 +139,12 @@ export function asyncCreateUser(data) {
         getInfo
             .postUser(data)
             .then((body) => {
-                sessionStorage.setItem('user', JSON.stringify(body));
-                dispatch(createUser(body));
+                if (body.user !== undefined) {
+                    sessionStorage.setItem('user', JSON.stringify(body));
+                    dispatch(createUser(body));
+                } else {
+                    dispatch(getUserError(body.errors));
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
@@ -143,13 +161,17 @@ function logIn(payload) {
     };
 }
 
-export function asyncLodIn(data) {
+export function asyncLogIn(data) {
     return (dispatch) => {
         getInfo
             .userLogin(data)
             .then((body) => {
-                sessionStorage.setItem('user', JSON.stringify(body));
-                dispatch(logIn(body));
+                if (body.user !== undefined) {
+                    sessionStorage.setItem('user', JSON.stringify(body));
+                    dispatch(logIn(body));
+                } else {
+                    dispatch(getUserError(body.errors));
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

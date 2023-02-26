@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 const baseURL = 'https://blog.kata.academy/api/';
@@ -60,10 +61,7 @@ export default class Service {
             });
 
             const data = await response.json();
-            if (response.status === 422) {
-                alert('username or email is already taken');
-            }
-            return data.user;
+            return data;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
         }
@@ -84,10 +82,7 @@ export default class Service {
             });
 
             const data = await response.json();
-            if (response.status === 422) {
-                alert('email or password is invalid');
-            }
-            return data.user;
+            return data;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
         }

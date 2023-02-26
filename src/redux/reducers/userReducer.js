@@ -3,6 +3,7 @@ import { editAccount, createAccount, logOut } from '../actions/types';
 
 const initialState = {
     user: JSON.parse(sessionStorage.getItem('user')),
+    userError: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -22,6 +23,16 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: null,
+            };
+        case 'user_error':
+            return {
+                ...state,
+                userError: action.payload,
+            };
+        case 'clean_user_error':
+            return {
+                ...state,
+                userError: null,
             };
 
         default:
