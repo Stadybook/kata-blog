@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncLogIn, cleanUserError } from '../../redux/actions/actions';
+import { asyncLogIn } from '../../redux/actions/actions';
 
 import style from './SignInPage.module.scss';
 
@@ -26,13 +26,7 @@ function SignInPage() {
         mode: 'onBlur',
     });
 
-    const handleClose = () => {
-        dispatch(cleanUserError());
-    };
-
-    const alert = error ? (
-        <WarningAlert handleClose={handleClose} error={error} />
-    ) : null;
+    const alert = error ? <WarningAlert error={error} /> : null;
 
     if (user === undefined || user === null) {
         const onSubmit = (data) => {

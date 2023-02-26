@@ -36,6 +36,11 @@ const articlesReducer = (state = initialState, action) => {
                 fullArticle: action.payload,
                 loading: false,
             };
+        case 'loading':
+            return {
+                ...state,
+                loading: true,
+            };
         case newArticle: //  add article
             return state;
         default:

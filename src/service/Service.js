@@ -109,7 +109,7 @@ export default class Service {
             });
 
             const data = await response.json();
-            return data.user;
+            return data;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
         }

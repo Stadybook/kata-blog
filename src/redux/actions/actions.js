@@ -12,9 +12,17 @@ import {
     createAccount,
     editAccount,
     newArticle,
+    deleteUserError,
+    userError,
 } from './types';
 
 const getInfo = new Service();
+
+export function makeLoad() {
+    return {
+        type: 'loading',
+    };
+}
 
 export function accountLogin() {
     return {
@@ -36,9 +44,8 @@ export function accountLoginOut() {
 }
 
 export function cleanUserError() {
-    console.log('action cleanUserError');
     return {
-        type: 'clean_user_error',
+        type: deleteUserError,
     };
 }
 
@@ -122,7 +129,7 @@ export function changePage(payload) {
 
 function getUserError(payload) {
     return {
-        type: 'user_error',
+        type: userError,
         payload,
     };
 }
@@ -140,8 +147,8 @@ export function asyncCreateUser(data) {
             .postUser(data)
             .then((body) => {
                 if (body.user !== undefined) {
-                    sessionStorage.setItem('user', JSON.stringify(body));
-                    dispatch(createUser(body));
+                    sessionStorage.setItem('user', JSON.stringify(body.user));
+                    dispatch(createUser(body.user));
                 } else {
                     dispatch(getUserError(body.errors));
                 }
@@ -167,8 +174,8 @@ export function asyncLogIn(data) {
             .userLogin(data)
             .then((body) => {
                 if (body.user !== undefined) {
-                    sessionStorage.setItem('user', JSON.stringify(body));
-                    dispatch(logIn(body));
+                    sessionStorage.setItem('user', JSON.stringify(body.user));
+                    dispatch(logIn(body.user));
                 } else {
                     dispatch(getUserError(body.errors));
                 }
@@ -193,8 +200,12 @@ export function asyncEditProfile(data, token) {
         getInfo
             .updateUser(data, token)
             .then((body) => {
-                sessionStorage.setItem('user', JSON.stringify(body));
-                dispatch(editProfile(body));
+                if (body.user !== undefined) {
+                    sessionStorage.setItem('user', JSON.stringify(body.user));
+                    dispatch(editProfile(body.user));
+                } else {
+                    dispatch(getUserError(body.errors));
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

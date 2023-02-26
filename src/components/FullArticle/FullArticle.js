@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 
-import { asyncGetFullArticle } from '../../redux/actions/actions';
+import Spiner from '../Spiner/Spiner';
+import { asyncGetFullArticle, makeLoad } from '../../redux/actions/actions';
 import Article from '../Article';
 
 export default function FullArticle() {
@@ -16,26 +17,28 @@ export default function FullArticle() {
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
     );
+    const loading = useSelector((state) => state.articlesReducer.loading);
     const { slug } = useParams();
 
     useEffect(() => {
         dispatch(asyncGetFullArticle(slug));
+        dispatch(makeLoad());
     }, []);
 
-    if (fullArticle !== null) {
-        const { body } = fullArticle;
+    const content = loading ? (
+        <Spiner />
+    ) : (
+        <article>
+            <Article
+                {...fullArticle}
+                func={(text) => {
+                    return text;
+                }}
+                full
+            />
+            <ReactMarkdown className='text'>{fullArticle.body}</ReactMarkdown>
+        </article>
+    );
 
-        return (
-            <article>
-                <Article
-                    {...fullArticle}
-                    func={(text) => {
-                        return text;
-                    }}
-                    full
-                />
-                <ReactMarkdown className='text'>{body}</ReactMarkdown>
-            </article>
-        );
-    }
+    return content;
 }

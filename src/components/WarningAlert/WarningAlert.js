@@ -1,8 +1,16 @@
 import React from 'react';
 import { Alert } from 'antd';
+import { useDispatch } from 'react-redux';
+
+import { cleanUserError } from '../../redux/actions/actions';
 
 export default function WarningAlert(props) {
-    const { handleClose, error } = props;
+    const { error } = props;
+    const dispatch = useDispatch();
+    const handleClose = () => {
+        dispatch(cleanUserError());
+    };
+
     let msg;
     if (error.email && error.username) {
         msg = 'Email and username are already taken';

@@ -3,21 +3,24 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { asyncGetArticles } from '../../redux/actions/actions';
+import { asyncGetArticles, makeLoad } from '../../redux/actions/actions';
 import PaginationFn from '../Pagination';
 import './ArticleList.scss';
 import Article from '../Article';
 import cuttingFn from '../../helpFunctions/cuttingFn';
+import Spiner from '../Spiner/Spiner';
 
 export default function ArticleList(props) {
     const { onSelected } = props;
     const page = useSelector((state) => state.articlesReducer.page);
     const articles = useSelector((state) => state.articlesReducer.articles);
+    const loading = useSelector((state) => state.articlesReducer.loading);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(asyncGetArticles(page));
+        dispatch(makeLoad());
     }, [page]);
 
     const elements = articles.map((item) => {
@@ -31,10 +34,14 @@ export default function ArticleList(props) {
             />
         );
     });
-    return (
+
+    const content = loading ? (
+        <Spiner />
+    ) : (
         <>
             <ul className='list'>{elements}</ul>
             <PaginationFn />
         </>
     );
+    return content;
 }

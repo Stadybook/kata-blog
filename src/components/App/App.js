@@ -13,8 +13,13 @@ import ArticleListPage from '../../pages/ArticlesListPage';
 import EditProfilePage from '../EditProfilePage';
 import CreateArticle from '../CreateArticle';
 import NotFound from '../NotFound/NotFound';
+import DisconnectIndicator from '../DisconnectIndicator/DisconnectIndicator';
 
 export default function App() {
+    if (!navigator.onLine) {
+        return <DisconnectIndicator />;
+    }
+
     return (
         <Router>
             <div className='container'>

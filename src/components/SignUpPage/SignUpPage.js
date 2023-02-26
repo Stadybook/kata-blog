@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncCreateUser, cleanUserError } from '../../redux/actions/actions';
+import { asyncCreateUser } from '../../redux/actions/actions';
 
 import style from './SignUpPage.module.scss';
 
@@ -26,13 +26,7 @@ function SignUpPage() {
         mode: 'onBlur',
     });
 
-    const handleClose = () => {
-        dispatch(cleanUserError());
-    };
-
-    const alert = error ? (
-        <WarningAlert handleClose={handleClose} error={error} />
-    ) : null;
+    const alert = error ? <WarningAlert error={error} /> : null;
 
     if (user === undefined || user === null) {
         const onSubmit = (data) => {
