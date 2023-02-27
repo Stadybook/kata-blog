@@ -1,0 +1,29 @@
+.heart{
+	height: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto 5px;
+	-webkit-appearance: none;
+	appearance: none;
+	cursor: pointer;
+	opacity: 0;
+	+ {
+		label {
+			background-image: url('../../img/dislike.svg');
+			background-repeat: no-repeat;
+            background-position: 0px;
+		}
+	}
+	&:checked {
+		+ {
+			label {
+				background-image: url('../../img/like.svg');
+			}
+		}
+	}
+}
+
+.count{
+    margin-left: 20px;
+}

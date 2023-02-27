@@ -29,6 +29,7 @@ function EditProfilePage() {
         register,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
@@ -42,6 +43,20 @@ function EditProfilePage() {
         dispatch(asyncEditProfile(data, token));
         reset();
     };
+
+    /*
+
+    const img = document.createElement('img');
+    img.src = 'https://js.cx/clipart/train.gif';
+
+    img.onload = function () {
+        alert(`Изображение загружено, размеры ${img.width}x${img.height}`);
+    };
+
+    img.onerror = function () {
+        alert('Ошибка во время загрузки изображения');
+    };
+    */
 
     return (
         <>
@@ -116,10 +131,7 @@ function EditProfilePage() {
                         <span> Avatar image (url)</span>
                         <input
                             placeholder='Avatar image'
-                            {...register('image', {
-                                pattern:
-                                    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                            })}
+                            {...register('image', {})}
                         />
                     </label>
                     <input className={style.btn} type='submit' value='Save' />

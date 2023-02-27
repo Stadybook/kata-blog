@@ -24,6 +24,7 @@ export default function ArticleList(props) {
     }, [page]);
 
     const elements = articles.map((item) => {
+        // console.log(item)
         const { slug } = item;
         return (
             <Article

@@ -15,8 +15,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import getId from '../../helpFunctions/getId';
 import defaultPhoto from '../../img/avatar.svg';
-import like from '../../img/like.svg';
 import Buttons from '../Buttons';
+import Like from '../Like';
 
 import style from './Article.module.scss';
 
@@ -36,12 +36,14 @@ export default function Article(props) {
         createdAt,
         tagList,
         favoritesCount,
+        favorited,
         author,
         full
     } = props;
    
+    // console.log(favorited)
     const { image, username } = author;
-
+   
     const tags = tagList.map((tag) => {
         if (tag.length === 0) {
             return;
@@ -71,10 +73,7 @@ export default function Article(props) {
                             {func(title, 50)}
                         </a>
                         <div className={style.likes}>
-                            <div>
-                                <img src={like} alt='likes' />
-                            </div>
-                            <span>{favoritesCount}</span>
+                            <Like favoritesCount={favoritesCount} favorited={favorited} slug={slug}/>
                         </div>
                     </div>
                     {tags}

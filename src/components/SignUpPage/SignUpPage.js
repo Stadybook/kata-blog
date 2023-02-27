@@ -145,9 +145,8 @@ function SignUpPage() {
                         />
                         <label className={style.label} htmlFor='checkbox'>
                             <span>
-                                {' '}
                                 I agree to the processing of my personal
-                                information{' '}
+                                information
                             </span>
                         </label>
                         <p>{errors.checkbox?.message}</p>

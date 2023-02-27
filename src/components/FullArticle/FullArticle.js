@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect } from 'react';
@@ -25,20 +23,27 @@ export default function FullArticle() {
         dispatch(makeLoad());
     }, []);
 
-    const content = loading ? (
-        <Spiner />
-    ) : (
-        <article>
-            <Article
-                {...fullArticle}
-                func={(text) => {
-                    return text;
-                }}
-                full
-            />
+    let body = '';
+    if (fullArticle) {
+        body = (
             <ReactMarkdown className='text'>{fullArticle.body}</ReactMarkdown>
-        </article>
-    );
+        );
+    }
+    const content =
+        loading || fullArticle === null ? (
+            <Spiner />
+        ) : (
+            <article>
+                <Article
+                    {...fullArticle}
+                    func={(text) => {
+                        return text;
+                    }}
+                    full
+                />
+                {body}
+            </article>
+        );
 
     return content;
 }

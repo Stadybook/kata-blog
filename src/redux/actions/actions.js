@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 import Service from '../../service/Service';
 
@@ -228,6 +229,38 @@ export function asyncAddArticle(data, token, tags) {
             .createArticle(data, token, tags)
             .then((body) => {
                 dispatch(addArticle(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+export function asyncLikePost(slug, token) {
+    return (dispatch) => {
+        getInfo
+            .likePost(slug, token)
+            .then((body) => {
+                console.log(body);
+                // dispatch(addArticle(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+export function asyncDislikePost(slug, token) {
+    return (dispatch) => {
+        getInfo
+            .dislikePost(slug, token)
+            .then((body) => {
+                console.log(body);
+                // dispatch(addArticle(body));
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
