@@ -142,21 +142,34 @@ export default class Service {
         }
     };
 
-    likePost = async (slug, token) => {
-        /* const url = `${baseURL}articles/${slug}/favorite`;
-       await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                slug,
-            }),
-        }).catch((err) => {
-            throw new Error('unsuccessful fetch request', err.message);
-        }); */
+    updateArticle = async (article, slug, token, tagList) => {
+        const { title, description, body } = article;
+        try {
+            const url = `${baseURL}articles/${slug}`;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    article: {
+                        title,
+                        description,
+                        body,
+                        tagList,
+                    },
+                }),
+            });
 
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
+    };
+
+    likePost = async (slug, token) => {
         try {
             const url = `${baseURL}articles/${slug}/favorite`;
             const response = await fetch(url, {
@@ -178,20 +191,6 @@ export default class Service {
     };
 
     dislikePost = async (slug, token) => {
-        /* const url = `${baseURL}articles/${slug}/favorite`;
-        await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                slug,
-            }),
-        }).catch((err) => {
-            throw new Error('unsuccessful fetch request', err.message);
-        }); */
-
         try {
             const url = `${baseURL}articles/${slug}/favorite`;
             const response = await fetch(url, {

@@ -8,12 +8,13 @@ import './App.scss';
 import Header from '../Header';
 import SignUpPage from '../SignUpPage';
 import SignInPage from '../SignInPage';
-import FullArticle from '../FullArticle';
+// import FullArticle from '../FullArticle';
 import ArticleListPage from '../../pages/ArticlesListPage';
+import ArticalePage from '../../pages/ArticalePage';
 import EditProfilePage from '../EditProfilePage';
-import CreateArticle from '../CreateArticle';
+import CreateAndEditArticle from '../CreateArticle';
 import NotFound from '../NotFound/NotFound';
-import DisconnectIndicator from '../DisconnectIndicator/DisconnectIndicator';
+import DisconnectIndicator from '../DisconnectIndicator';
 
 export default function App() {
     if (!navigator.onLine) {
@@ -29,7 +30,10 @@ export default function App() {
                     <Route path='/sign-up' component={SignUpPage} />
                     <Route path='/sign-in' component={SignInPage} />
                     <Route path='/profile' component={EditProfilePage} />
-                    <Route path='/new-article' component={CreateArticle} />
+                    <Route
+                        path='/new-article'
+                        component={CreateAndEditArticle}
+                    />
                     <Route
                         path='/articles/'
                         exact
@@ -37,8 +41,15 @@ export default function App() {
                     />
                     <Route
                         path='/articles/:slug'
-                        render={({ history }) => {
-                            return <FullArticle />;
+                        exact
+                        render={() => {
+                            return <ArticalePage />;
+                        }}
+                    />
+                    <Route
+                        path='/articles/:slug/edit'
+                        render={() => {
+                            return <CreateAndEditArticle edit />;
                         }}
                     />
                     <Route component={NotFound} />

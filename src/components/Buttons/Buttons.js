@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Popconfirm } from 'antd';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { asyncDeleteArticles } from '../../redux/actions/actions';
 
@@ -11,7 +11,9 @@ import style from './Buttons.module.scss';
 const text = 'Are you sure to delete this article?';
 const description = 'Delete the article';
 
-export default function Buttons() {
+export default function Buttons(props) {
+    const [action, setAction] = useState(false);
+    const { onEdit } = props;
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
     );
@@ -23,34 +25,36 @@ export default function Buttons() {
     const onDelete = () => {
         console.log('delete');
         dispatch(asyncDeleteArticles(slug, token));
+        setAction(true);
     };
 
-    const onEdit = () => {
-        console.log('edit');
-        // <Redirect to='/new-article' />;
-    };
+    useEffect(() => {});
+    if (action) {
+        return <Redirect to='/articles/' />;
+    }
 
     return (
         <div className={style.group}>
-            <Link to='/articles/'>
-                <Popconfirm
-                    placement='rightTop'
-                    title={text}
-                    description={description}
-                    onConfirm={onDelete}
-                    okText='Yes'
-                    cancelText='No'
-                >
-                    <button type='button' className={style.delete}>
-                        Delete
-                    </button>
-                </Popconfirm>
-            </Link>
-            <Link to='/new-article'>
-                <button type='button' className={style.edit} onClick={onEdit}>
-                    Edit
+            <Popconfirm
+                placement='rightTop'
+                title={text}
+                description={description}
+                onConfirm={onDelete}
+                okText='Yes'
+                cancelText='No'
+            >
+                <button type='button' className={style.delete}>
+                    Delete
                 </button>
-            </Link>
+            </Popconfirm>
+
+            <button
+                type='button'
+                className={style.edit}
+                onClick={() => onEdit(slug)}
+            >
+                Edit
+            </button>
         </div>
     );
 }

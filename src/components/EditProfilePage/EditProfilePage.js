@@ -1,23 +1,30 @@
+/* eslint-disable func-names */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
 import { asyncEditProfile } from '../../redux/actions/actions';
 
 import style from './EditProfilePage.module.scss';
 
+const confirm = () => {
+    message.info(
+        'Incorrect url of the image. Please check the url or clear the field'
+    );
+};
+
 function EditProfilePage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
-
     const alert = error ? <WarningAlert error={error} /> : null;
 
     if (user === undefined || user === null) {
@@ -39,24 +46,24 @@ function EditProfilePage() {
         },
     });
 
-    const onSubmit = (data) => {
-        dispatch(asyncEditProfile(data, token));
-        reset();
-    };
-
-    /*
-
     const img = document.createElement('img');
-    img.src = 'https://js.cx/clipart/train.gif';
-
+    img.src = watch('image');
+    let msg;
     img.onload = function () {
-        alert(`Изображение загружено, размеры ${img.width}x${img.height}`);
+        msg = true;
+    };
+    img.onerror = function () {
+        msg = false;
     };
 
-    img.onerror = function () {
-        alert('Ошибка во время загрузки изображения');
+    const onSubmit = (data) => {
+        if (msg) {
+            dispatch(asyncEditProfile(data, token));
+            reset();
+        } else {
+            confirm();
+        }
     };
-    */
 
     return (
         <>
@@ -131,10 +138,15 @@ function EditProfilePage() {
                         <span> Avatar image (url)</span>
                         <input
                             placeholder='Avatar image'
-                            {...register('image', {})}
+                            {...register('image')}
                         />
                     </label>
-                    <input className={style.btn} type='submit' value='Save' />
+                    <input
+                        className={style.btn}
+                        type='submit'
+                        value='Save'
+                        disabled={error}
+                    />
                 </form>
             </section>
         </>

@@ -10,7 +10,8 @@ import Spiner from '../Spiner/Spiner';
 import { asyncGetFullArticle, makeLoad } from '../../redux/actions/actions';
 import Article from '../Article';
 
-export default function FullArticle() {
+export default function FullArticle(props) {
+    const { onEdit } = props;
     const dispatch = useDispatch();
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
@@ -39,6 +40,7 @@ export default function FullArticle() {
                     func={(text) => {
                         return text;
                     }}
+                    onEdit={onEdit}
                     full
                 />
                 {body}

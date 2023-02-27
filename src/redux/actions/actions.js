@@ -55,6 +55,11 @@ export function articleCreate() {
         type: createArticle,
     };
 }
+/* export function cleanArr(){
+    return{
+        type:'clean_arr'
+    }
+} */
 
 function articleDelete() {
     return {
@@ -238,12 +243,26 @@ export function asyncAddArticle(data, token, tags) {
     };
 }
 
+export function asyncUpdateArticle(data, slug, token, tags) {
+    return (dispatch) => {
+        getInfo
+            .updateArticle(data, slug, token, tags)
+            .then((body) => {
+                // dispatch(addArticle(body));
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
 export function asyncLikePost(slug, token) {
     return (dispatch) => {
         getInfo
             .likePost(slug, token)
             .then((body) => {
-                console.log(body);
                 // dispatch(addArticle(body));
             })
             .catch((e) => {
@@ -259,7 +278,6 @@ export function asyncDislikePost(slug, token) {
         getInfo
             .dislikePost(slug, token)
             .then((body) => {
-                console.log(body);
                 // dispatch(addArticle(body));
             })
             .catch((e) => {

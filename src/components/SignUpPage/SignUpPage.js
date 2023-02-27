@@ -154,6 +154,7 @@ function SignUpPage() {
                             className={style.btn}
                             type='submit'
                             value='Create'
+                            disabled={error}
                         />
                         <span className={style.link}>
                             Already have an account?

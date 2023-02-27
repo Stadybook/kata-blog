@@ -26,10 +26,6 @@ section{
     gap:5px;
 }
 
-/* .likes div{
-    width: 16px;
-    height: 15px;
-} */
 .title{
     display: block;
     max-width: 600px;
@@ -41,6 +37,12 @@ section{
     align-items: center;
     color: #1890FF;
     padding-bottom: 8px;
+}
+
+.disabled{
+    pointer-events: none;
+    cursor: default; 
+    color: #999;
 }
 .tag  {
     max-width: 600px;

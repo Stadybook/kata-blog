@@ -1,11 +1,19 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import FullArticle from '../components/FullArticle';
 
-function ArticlePage() {
-    return <FullArticle />;
+function ArticlePage({ history }) {
+    return (
+        <FullArticle
+            onEdit={(articleId) => {
+                const newPath = `${articleId}/edit`;
+                history.push(newPath);
+            }}
+        />
+    );
 }
 
 export default withRouter(ArticlePage);

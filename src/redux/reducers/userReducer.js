@@ -1,5 +1,11 @@
 /* eslint-disable default-param-last */
-import { editAccount, createAccount, logOut } from '../actions/types';
+import {
+    editAccount,
+    createAccount,
+    logOut,
+    deleteUserError,
+    userError,
+} from '../actions/types';
 
 const initialState = {
     user: JSON.parse(sessionStorage.getItem('user')),
@@ -7,7 +13,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-    // console.log(action.payload);
+    // console.log(action.type);
     switch (action.type) {
         case createAccount:
             return {
@@ -24,12 +30,12 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: null,
             };
-        case 'user_error':
+        case userError:
             return {
                 ...state,
                 userError: action.payload,
             };
-        case 'clean_user_error':
+        case deleteUserError:
             return {
                 ...state,
                 userError: null,

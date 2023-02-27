@@ -21,6 +21,7 @@ import Like from '../Like';
 import style from './Article.module.scss';
 
 export default function Article(props) {
+    console.log(props)
     const user = useSelector((state) => state.userReducer.user);
     let authorizationPerson = false;
     if(user !== undefined && user !== null){
@@ -33,6 +34,7 @@ export default function Article(props) {
         description,
         slug,
         onSelected,
+        onEdit,
         createdAt,
         tagList,
         favoritesCount,
@@ -41,7 +43,6 @@ export default function Article(props) {
         full
     } = props;
    
-    // console.log(favorited)
     const { image, username } = author;
    
     const tags = tagList.map((tag) => {
@@ -56,8 +57,7 @@ export default function Article(props) {
         );
     });
 
-    // ???
-    const avatar = image !== undefined ? image : defaultPhoto;
+    const avatar = image !== undefined  ? image : defaultPhoto; 
 
     const createDate = format(new Date(createdAt), 'MMMM dd, yyyy');
 
@@ -68,7 +68,8 @@ export default function Article(props) {
                     <div className={style.info}>
                         <a
                             onClick={() => onSelected(slug)}
-                            className={style.title}
+                            className={full ? `${style.title} ${style.disabled}` : style.title}
+                            
                         >
                             {func(title, 50)}
                         </a>
@@ -92,7 +93,7 @@ export default function Article(props) {
                 <div className={style.description}>
                     {func(description, 200)}
                 </div>
-                {full && authorizationPerson === username? <Buttons /> : null}
+                {full && authorizationPerson === username? <Buttons onEdit={onEdit}/> : null}
             </div>
         </section>
     );

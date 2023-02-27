@@ -8,13 +8,38 @@ import { useForm } from 'react-hook-form';
 import { Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { asyncAddArticle } from '../../redux/actions/actions';
+import {
+    asyncAddArticle,
+    asyncUpdateArticle,
+} from '../../redux/actions/actions';
 import getId from '../../helpFunctions/getId';
 
-import style from './CreateArticle.module.scss';
+import style from './CreateAndEditArticle.module.scss';
 
-function CreateArticle() {
+function CreateAndEditArticle(props) {
+    const { edit } = props;
     const user = useSelector((state) => state.userReducer.user);
+    const fullArticle = useSelector(
+        (state) => state.articlesReducer.fullArticle
+    );
+
+    let initValue = { title: '', description: '', body: '', tagList: [] };
+
+    if (fullArticle && edit) {
+        const { title, description, body, tagList } = fullArticle;
+
+        const getData = (arrArrs) => {
+            return arrArrs.map((val) => ({ name: val, id: getId() }));
+        };
+        const newTagList = getData(tagList);
+
+        initValue = {
+            title,
+            description,
+            body,
+            tagList: newTagList,
+        };
+    }
 
     if (user === undefined || user === null) {
         return <Redirect to='/sign-in' />;
@@ -28,25 +53,33 @@ function CreateArticle() {
         formState: { errors },
     } = useForm({
         mode: 'onBlur',
+        defaultValues: initValue,
     });
 
     const dispatch = useDispatch();
-    const [tagList, setTagList] = useState([]);
+    const [listOfTags, setTagList] = useState(initValue.tagList);
     const [tagValue, setTagValue] = useState({ name: '', id: '' });
     const onSubmit = (data) => {
         const tagsArr = [];
-        tagList.map((el) => {
+        listOfTags.map((el) => {
             tagsArr.push(el.name);
         });
-        dispatch(asyncAddArticle(data, token, tagsArr));
+        if (edit) {
+            dispatch(
+                asyncUpdateArticle(data, fullArticle.slug, token, tagsArr)
+            );
+        } else {
+            dispatch(asyncAddArticle(data, token, tagsArr));
+        }
+
         reset();
     };
 
     const onDelete = (id) => {
-        const index = tagList.findIndex((el) => el.id === id);
+        const index = listOfTags.findIndex((el) => el.id === id);
         const newData = [
-            ...tagList.slice(0, index),
-            ...tagList.slice(index + 1),
+            ...listOfTags.slice(0, index),
+            ...listOfTags.slice(index + 1),
         ];
         setTagList(newData);
     };
@@ -65,7 +98,7 @@ function CreateArticle() {
         setTagValue(newTag);
     };
 
-    const tags = tagList.map((tag) => {
+    const tags = listOfTags.map((tag) => {
         const { id } = tag;
         return (
             <li key={tag.id} className={style.tag}>
@@ -158,4 +191,4 @@ function CreateArticle() {
     );
 }
 
-export default withRouter(CreateArticle);
+export default withRouter(CreateAndEditArticle);

@@ -41,6 +41,11 @@ const articlesReducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
             };
+        /* case 'clean_arr':
+            return {
+                ...state,
+                articles: [],
+            }; */
         case newArticle: //  add article
             return state;
         default:
