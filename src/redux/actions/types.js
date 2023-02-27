@@ -11,3 +11,5 @@ export const createArticle = 'create_article';
 export const createAccount = 'create_user';
 export const editAccount = 'edit_user';
 export const newArticle = 'new_article';
+export const load = 'loading';
+export const clean = 'clean';

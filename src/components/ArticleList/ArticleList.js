@@ -3,7 +3,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { asyncGetArticles, makeLoad } from '../../redux/actions/actions';
+import {
+    asyncGetArticles,
+    makeLoad,
+    cleanArr,
+} from '../../redux/actions/actions';
 import PaginationFn from '../Pagination';
 import './ArticleList.scss';
 import Article from '../Article';
@@ -21,6 +25,7 @@ export default function ArticleList(props) {
     useEffect(() => {
         dispatch(asyncGetArticles(page));
         dispatch(makeLoad());
+        dispatch(cleanArr());
     }, [page]);
 
     const elements = articles.map((item) => {

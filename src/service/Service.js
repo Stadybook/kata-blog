@@ -43,6 +43,24 @@ export default class Service {
         }).catch((err) => {
             throw new Error('unsuccessful fetch request', err.message);
         });
+        /* try {
+            const url = `${baseURL}articles/${slug}`;
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    slug,
+                }),
+            });
+
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        } */
     };
 
     postUser = async ({ username, email, password }) => {
@@ -136,7 +154,7 @@ export default class Service {
             });
 
             const data = await response.json();
-            return data.article;
+            return data;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
         }

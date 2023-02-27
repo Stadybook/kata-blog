@@ -1,7 +1,9 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import './Like.scss';
 import { asyncLikePost, asyncDislikePost } from '../../redux/actions/actions';
@@ -9,8 +11,9 @@ import { asyncLikePost, asyncDislikePost } from '../../redux/actions/actions';
 export default function Like(props) {
     const dispatch = useDispatch();
     const { favoritesCount, slug, favorited } = props;
-    console.log(favorited);
+    // console.log(favorited);
     const user = useSelector((state) => state.userReducer.user);
+    // console.log(user)
     const [mark, setMark] = useState(favorited);
     const [count, setCount] = useState(favoritesCount);
 

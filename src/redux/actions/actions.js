@@ -15,13 +15,15 @@ import {
     newArticle,
     deleteUserError,
     userError,
+    load,
+    clean,
 } from './types';
 
 const getInfo = new Service();
 
 export function makeLoad() {
     return {
-        type: 'loading',
+        type: load,
     };
 }
 
@@ -55,11 +57,11 @@ export function articleCreate() {
         type: createArticle,
     };
 }
-/* export function cleanArr(){
-    return{
-        type:'clean_arr'
-    }
-} */
+export function cleanArr() {
+    return {
+        type: clean,
+    };
+}
 
 function articleDelete() {
     return {
@@ -72,7 +74,8 @@ export function asyncDeleteArticles(slug, token) {
         getInfo
             .deleteArticle(slug, token)
             .then((body) => {
-                dispatch(articleDelete(body));
+                // console.log(body)
+                // dispatch(articleDelete(body));
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
@@ -228,12 +231,23 @@ function addArticle(payload) {
     };
 }
 
+function catchError(payload) {
+    return {
+        type: 'articles_error',
+        payload,
+    };
+}
+
 export function asyncAddArticle(data, token, tags) {
     return (dispatch) => {
         getInfo
             .createArticle(data, token, tags)
             .then((body) => {
-                dispatch(addArticle(body));
+                if (body.article !== undefined) {
+                    dispatch(addArticle(body));
+                } else {
+                    dispatch(catchError(body.errors));
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
@@ -248,7 +262,11 @@ export function asyncUpdateArticle(data, slug, token, tags) {
         getInfo
             .updateArticle(data, slug, token, tags)
             .then((body) => {
-                // dispatch(addArticle(body));
+                if (body.article !== undefined) {
+                    dispatch(addArticle(body));
+                } else {
+                    dispatch(catchError(body.errors));
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {

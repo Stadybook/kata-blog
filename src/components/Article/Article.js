@@ -21,7 +21,6 @@ import Like from '../Like';
 import style from './Article.module.scss';
 
 export default function Article(props) {
-    console.log(props)
     const user = useSelector((state) => state.userReducer.user);
     let authorizationPerson = false;
     if(user !== undefined && user !== null){

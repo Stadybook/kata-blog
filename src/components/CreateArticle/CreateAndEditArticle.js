@@ -3,11 +3,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { withRouter, Redirect, Link } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Error from '../ErrorHanding';
 import {
     asyncAddArticle,
     asyncUpdateArticle,
@@ -22,6 +23,10 @@ function CreateAndEditArticle(props) {
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
     );
+    const createdArticle = useSelector(
+        (state) => state.articlesReducer.createdArticle
+    );
+    const error = useSelector((state) => state.articlesReducer.articleError);
 
     let initValue = { title: '', description: '', body: '', tagList: [] };
 
@@ -59,6 +64,7 @@ function CreateAndEditArticle(props) {
     const dispatch = useDispatch();
     const [listOfTags, setTagList] = useState(initValue.tagList);
     const [tagValue, setTagValue] = useState({ name: '', id: '' });
+
     const onSubmit = (data) => {
         const tagsArr = [];
         listOfTags.map((el) => {
@@ -71,9 +77,12 @@ function CreateAndEditArticle(props) {
         } else {
             dispatch(asyncAddArticle(data, token, tagsArr));
         }
-
         reset();
     };
+
+    if (createdArticle !== null) {
+        return <Redirect to='/articles/' />;
+    }
 
     const onDelete = (id) => {
         const index = listOfTags.findIndex((el) => el.id === id);
@@ -114,7 +123,9 @@ function CreateAndEditArticle(props) {
         );
     });
 
-    return (
+    return error ? (
+        <Error />
+    ) : (
         <section className={style.container}>
             <h5 className={style.title}>Create new article</h5>
             <form onSubmit={handleSubmit(onSubmit)} className={style.inputs}>

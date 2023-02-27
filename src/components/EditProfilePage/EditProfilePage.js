@@ -25,6 +25,7 @@ function EditProfilePage() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
+    const userUpdate = useSelector((state) => state.userReducer.userUpdate);
     const alert = error ? <WarningAlert error={error} /> : null;
 
     if (user === undefined || user === null) {
@@ -64,6 +65,10 @@ function EditProfilePage() {
             confirm();
         }
     };
+
+    if (userUpdate !== null) {
+        return <Redirect to='/articles/' />;
+    }
 
     return (
         <>

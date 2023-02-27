@@ -5,11 +5,13 @@ import {
     logOut,
     deleteUserError,
     userError,
+    clean,
 } from '../actions/types';
 
 const initialState = {
     user: JSON.parse(sessionStorage.getItem('user')),
     userError: null,
+    userUpdate: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -24,6 +26,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: { ...action.payload },
+                userUpdate: action.payload,
             };
         case logOut:
             return {
@@ -39,6 +42,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userError: null,
+            };
+        case clean:
+            return {
+                ...state,
+                userUpdate: null,
             };
 
         default:

@@ -4,6 +4,7 @@ import {
     loadArticles,
     newArticle,
     loadfullArticle,
+    load,
 } from '../actions/types';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
     page: 1,
     loading: true,
     fullArticle: null,
-    // createArticles: [],
+    createdArticle: null,
+    articleError: false,
 };
 
 const articlesReducer = (state = initialState, action) => {
@@ -23,6 +25,7 @@ const articlesReducer = (state = initialState, action) => {
                 articles: [...action.payload.articles],
                 articlesCount: action.payload.articlesCount,
                 loading: false,
+                createdArticle: null,
             };
         case changingPage:
             return {
@@ -36,18 +39,25 @@ const articlesReducer = (state = initialState, action) => {
                 fullArticle: action.payload,
                 loading: false,
             };
-        case 'loading':
+        case load:
             return {
                 ...state,
                 loading: true,
             };
-        /* case 'clean_arr':
+
+        case newArticle:
             return {
                 ...state,
-                articles: [],
-            }; */
-        case newArticle: //  add article
-            return state;
+                createdArticle: action.payload,
+                loading: false,
+            };
+        case ' articles_error':
+            return {
+                ...state,
+                articleError: true,
+                loading: false,
+            };
+
         default:
             return state;
     }
