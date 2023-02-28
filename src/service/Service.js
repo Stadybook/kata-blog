@@ -1,47 +1,42 @@
 /* eslint-disable class-methods-use-this */
 const baseURL = 'https://blog.kata.academy/api/';
 export default class Service {
-    async makeRequest(url) {
+    getArticles = async (page, token) => {
         try {
-            const res = await fetch(url);
-
-            if (!res.ok) {
-                throw new Error('invalid responce', res.status);
-            }
-            const body = await res.json();
-            return body;
+            const url = `${baseURL}articles?limit=5&offset=${(page - 1) * 5}`;
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const data = await response.json();
+            return data;
         } catch (e) {
-            throw new Error(e);
+            throw new Error(`Service ${e.message}`);
         }
-    }
-
-    getArticles = async (page) => {
-        const url = `${baseURL}articles?limit=5&offset=${(page - 1) * 5}`;
-        const body = await this.makeRequest(url);
-        return body;
     };
 
-    getFullArticle = async (slug) => {
-        const url = `${baseURL}articles/${slug}`;
-        const body = await this.makeRequest(url);
-        return body.article;
+    getFullArticle = async (slug, token) => {
+        try {
+            const url = `${baseURL}articles/${slug}`;
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            throw new Error(`Service ${e.message}`);
+        }
     };
 
-    deleteArticle = async (slug, token) => {
-        const url = `${baseURL}articles/${slug}`;
-        await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                slug,
-            }),
-        }).catch((err) => {
-            throw new Error('unsuccessful fetch request', err.message);
-        });
-        /* try {
+    deletePost = async (slug, token) => {
+        try {
             const url = `${baseURL}articles/${slug}`;
             const response = await fetch(url, {
                 method: 'DELETE',
@@ -53,12 +48,11 @@ export default class Service {
                     slug,
                 }),
             });
-
             const data = await response.json();
             return data;
         } catch (e) {
             throw new Error(`Service ${e.message}`);
-        } */
+        }
     };
 
     postUser = async ({ username, email, password }) => {

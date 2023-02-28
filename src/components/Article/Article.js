@@ -33,7 +33,6 @@ export default function Article(props) {
         author,
         full,
     } = props;
-
     const { image, username } = author;
 
     const tags = tagList.map((tag) => {

@@ -16,7 +16,7 @@ const initialState = {
     loading: true,
     fullArticle: null,
     articleResponse: null,
-    articleError: false,
+    articlesError: false,
 };
 
 const articlesReducer = (state = initialState, action) => {
@@ -56,7 +56,7 @@ const articlesReducer = (state = initialState, action) => {
         case articleError:
             return {
                 ...state,
-                articleError: true,
+                articlesError: true,
                 loading: false,
             };
         case deleteArticle:

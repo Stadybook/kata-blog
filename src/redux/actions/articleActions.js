@@ -46,16 +46,26 @@ function getArticles(payload) {
     };
 }
 
-export function asyncGetArticles(page) {
+function catchError() {
+    return {
+        type: articleError,
+    };
+}
+
+export function asyncGetArticles(page, token) {
     return (dispatch) => {
         getInfo
-            .getArticles(page)
+            .getArticles(page, token)
             .then((body) => {
-                dispatch(getArticles(body));
+                if (body.errors === undefined) {
+                    dispatch(getArticles(body));
+                } else {
+                    dispatch(catchError());
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(` ${e.message}`);
                 }
             });
     };
@@ -68,16 +78,20 @@ function getFullArticle(payload) {
     };
 }
 
-export function asyncGetFullArticle(slug) {
+export function asyncGetFullArticle(slug, token) {
     return (dispatch) => {
         getInfo
-            .getFullArticle(slug)
+            .getFullArticle(slug, token)
             .then((body) => {
-                dispatch(getFullArticle(body));
+                if (body.article !== undefined) {
+                    dispatch(getFullArticle(body.article));
+                } else {
+                    dispatch(catchError());
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };
@@ -97,13 +111,6 @@ function addArticle(payload) {
     };
 }
 
-function catchError(payload) {
-    return {
-        type: articleError,
-        payload,
-    };
-}
-
 export function asyncAddArticle(data, token, tags) {
     return (dispatch) => {
         getInfo
@@ -112,12 +119,12 @@ export function asyncAddArticle(data, token, tags) {
                 if (body.article !== undefined) {
                     dispatch(addArticle(body));
                 } else {
-                    dispatch(catchError(body.errors));
+                    dispatch(catchError());
                 }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };
@@ -131,12 +138,12 @@ export function asyncUpdateArticle(data, slug, token, tags) {
                 if (body.article !== undefined) {
                     dispatch(addArticle(body));
                 } else {
-                    dispatch(catchError(body.errors));
+                    dispatch(catchError());
                 }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };
@@ -145,17 +152,17 @@ export function asyncUpdateArticle(data, slug, token, tags) {
 export function asyncDeleteArticles(slug, token) {
     return (dispatch) => {
         getInfo
-            .deleteArticle(slug, token)
+            .deletePost(slug, token)
             .then((body) => {
                 if (body === undefined) {
                     dispatch(articleDelete(body));
                 } else {
-                    dispatch(catchError(body));
+                    dispatch(catchError());
                 }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };
@@ -166,11 +173,13 @@ export function asyncLikePost(slug, token) {
         getInfo
             .likePost(slug, token)
             .then((body) => {
-                // dispatch(addArticle(body));
+                if (body.errors) {
+                    dispatch(catchError());
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };
@@ -181,11 +190,13 @@ export function asyncDislikePost(slug, token) {
         getInfo
             .dislikePost(slug, token)
             .then((body) => {
-                // dispatch(addArticle(body));
+                if (body.errors) {
+                    dispatch(catchError());
+                }
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
+                    throw new Error(`${e.message}`);
                 }
             });
     };

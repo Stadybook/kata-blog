@@ -12,7 +12,9 @@ import { asyncEditProfile } from '../redux/actions/userActions';
 import style from './Forms.module.scss';
 
 const confirm = () => {
-    message.info('Incorrect url of the image. Please check the url');
+    message.info(
+        'Incorrect url of the image. Please check the url or clear the input field'
+    );
 };
 
 function EditProfilePage() {
@@ -42,7 +44,8 @@ function EditProfilePage() {
     });
 
     const img = document.createElement('img');
-    img.src = watch('image');
+    const url = watch('image');
+    img.src = url;
     let msg;
     img.onload = function () {
         msg = true;
@@ -52,7 +55,7 @@ function EditProfilePage() {
     };
 
     const onSubmit = (data) => {
-        if (msg) {
+        if (msg || url === '') {
             dispatch(asyncEditProfile(data, token));
             reset();
         } else {

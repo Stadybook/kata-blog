@@ -19,16 +19,22 @@ export default function ArticleList(props) {
     const page = useSelector((state) => state.articlesReducer.page);
     const articles = useSelector((state) => state.articlesReducer.articles);
     const loading = useSelector((state) => state.articlesReducer.loading);
+    const user = useSelector((state) => state.userReducer.user);
     const dispatch = useDispatch();
 
+    let Token = '';
+    if (user !== null && user !== undefined) {
+        const { token } = user;
+        Token = token;
+    }
+
     useEffect(() => {
-        dispatch(asyncGetArticles(page));
+        dispatch(asyncGetArticles(page, Token));
         dispatch(makeLoad());
         dispatch(cleanArr());
-    }, [page, dispatch]);
+    }, [page, dispatch, Token]);
 
     const elements = articles.map((item) => {
-        // console.log(item)
         const { slug } = item;
         return (
             <Article

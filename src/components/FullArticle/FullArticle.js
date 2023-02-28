@@ -21,13 +21,20 @@ export default function FullArticle(props) {
     const articleResponse = useSelector(
         (state) => state.articlesReducer.articleResponse
     );
+    const user = useSelector((state) => state.userReducer.user);
+
+    let Token = '';
+    if (user !== null && user !== undefined) {
+        const { token } = user;
+        Token = token;
+    }
 
     const { slug } = useParams();
 
     useEffect(() => {
-        dispatch(asyncGetFullArticle(slug));
+        dispatch(asyncGetFullArticle(slug, Token));
         dispatch(makeLoad());
-    }, [slug, dispatch]);
+    }, [slug, dispatch, Token]);
 
     if (articleResponse === undefined) {
         return <Redirect to='/articles/' />;

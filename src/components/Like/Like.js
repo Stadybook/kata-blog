@@ -14,9 +14,8 @@ import {
 export default function Like(props) {
     const dispatch = useDispatch();
     const { favoritesCount, slug, favorited } = props;
-    // console.log(favorited);
     const user = useSelector((state) => state.userReducer.user);
-    // console.log(user)
+
     const [mark, setMark] = useState(favorited);
     const [count, setCount] = useState(favoritesCount);
 
