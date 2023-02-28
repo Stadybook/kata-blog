@@ -12,7 +12,7 @@ import Error from '../ErrorHanding';
 import {
     asyncAddArticle,
     asyncUpdateArticle,
-} from '../../redux/actions/actions';
+} from '../../redux/actions/articleActions';
 import getId from '../../helpFunctions/getId';
 
 import style from './CreateAndEditArticle.module.scss';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Pagination } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { changePage } from '../../redux/actions/actions';
+import { changePage } from '../../redux/actions/articleActions';
 import './Pagination.scss';
 
 export default function PaginationFn() {

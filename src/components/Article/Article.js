@@ -1,18 +1,12 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
 
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
-import { useSelector} from 'react-redux';
-
+import { useSelector } from 'react-redux';
 
 import getId from '../../helpFunctions/getId';
 import defaultPhoto from '../../img/avatar.svg';
@@ -23,12 +17,12 @@ import style from './Article.module.scss';
 
 export default function Article(props) {
     const user = useSelector((state) => state.userReducer.user);
-  
+
     let authorizationPerson = false;
-    if(user !== undefined && user !== null){
-         authorizationPerson = user.username
+    if (user !== undefined && user !== null) {
+        authorizationPerson = user.username;
     }
- 
+
     const {
         func,
         title,
@@ -41,12 +35,11 @@ export default function Article(props) {
         favoritesCount,
         favorited,
         author,
-        full
+        full,
     } = props;
-   
- 
+
     const { image, username } = author;
-   
+
     const tags = tagList.map((tag) => {
         if (tag.length === 0) {
             return;
@@ -59,7 +52,7 @@ export default function Article(props) {
         );
     });
 
-    const avatar = image !== undefined  ? image : defaultPhoto; 
+    const avatar = image !== undefined ? image : defaultPhoto;
 
     const createDate = format(new Date(createdAt), 'MMMM dd, yyyy');
 
@@ -70,13 +63,20 @@ export default function Article(props) {
                     <div className={style.info}>
                         <a
                             onClick={() => onSelected(slug)}
-                            className={full ? `${style.title} ${style.disabled}` : style.title}
-                            
+                            className={
+                                full
+                                    ? `${style.title} ${style.disabled}`
+                                    : style.title
+                            }
                         >
                             {func(title, 50)}
                         </a>
                         <div className={style.likes}>
-                            <Like favoritesCount={favoritesCount} favorited={favorited} slug={slug}/>
+                            <Like
+                                favoritesCount={favoritesCount}
+                                favorited={favorited}
+                                slug={slug}
+                            />
                         </div>
                     </div>
                     {tags}
@@ -95,7 +95,9 @@ export default function Article(props) {
                 <div className={style.description}>
                     {func(description, 200)}
                 </div>
-                {full && authorizationPerson === username? <Buttons onEdit={onEdit}/> : null}
+                {full && authorizationPerson === username ? (
+                    <Buttons onEdit={onEdit} />
+                ) : null}
             </div>
         </section>
     );

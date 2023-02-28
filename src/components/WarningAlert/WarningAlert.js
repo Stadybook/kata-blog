@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert } from 'antd';
 import { useDispatch } from 'react-redux';
 
-import { cleanUserError } from '../../redux/actions/actions';
+import { cleanUserError } from '../../redux/actions/userActions';
 
 export default function WarningAlert(props) {
     const { error } = props;

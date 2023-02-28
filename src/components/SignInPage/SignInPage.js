@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncLogIn } from '../../redux/actions/actions';
+import { asyncLogIn } from '../../redux/actions/userActions';
 
 import style from './SignInPage.module.scss';
 

@@ -17,7 +17,7 @@ import ArticleListPage from '../../pages/ArticlesListPage';
 import ArticalePage from '../../pages/ArticalePage';
 import EditProfilePage from '../EditProfilePage';
 import CreateAndEditArticle from '../CreateArticle';
-import NotFound from '../NotFound/NotFound';
+import NotFound from '../../pages/NotFound';
 import DisconnectIndicator from '../DisconnectIndicator';
 
 export default function App() {

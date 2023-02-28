@@ -7,7 +7,7 @@ import {
     asyncGetArticles,
     makeLoad,
     cleanArr,
-} from '../../redux/actions/actions';
+} from '../../redux/actions/articleActions';
 import PaginationFn from '../Pagination';
 import './ArticleList.scss';
 import Article from '../Article';

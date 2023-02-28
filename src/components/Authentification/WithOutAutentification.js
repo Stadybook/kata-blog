@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { accountLogin, accountCreate } from '../../redux/actions/actions';
+import { accountLogin, accountCreate } from '../../redux/actions/userActions';
 
 import style from './Authentification.module.scss';
 

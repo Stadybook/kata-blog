@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 
-import img from '../../img/not.png';
+import img from '../img/not.png';
 
 export default function NotFound() {
     return (

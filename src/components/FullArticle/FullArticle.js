@@ -7,7 +7,10 @@ import ReactMarkdown from 'react-markdown';
 import { useParams, Redirect } from 'react-router-dom';
 
 import Spiner from '../Spiner/Spiner';
-import { asyncGetFullArticle, makeLoad } from '../../redux/actions/actions';
+import {
+    asyncGetFullArticle,
+    makeLoad,
+} from '../../redux/actions/articleActions';
 import Article from '../Article';
 
 export default function FullArticle(props) {

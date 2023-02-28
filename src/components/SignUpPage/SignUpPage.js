@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncCreateUser } from '../../redux/actions/actions';
+import { asyncCreateUser } from '../../redux/actions/userActions';
 
 import style from './SignUpPage.module.scss';
 

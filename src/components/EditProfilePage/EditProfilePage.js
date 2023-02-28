@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
 import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncEditProfile } from '../../redux/actions/actions';
+import { asyncEditProfile } from '../../redux/actions/userActions';
 
 import style from './EditProfilePage.module.scss';
 

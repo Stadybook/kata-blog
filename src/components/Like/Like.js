@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import './Like.scss';
-import { asyncLikePost, asyncDislikePost } from '../../redux/actions/actions';
+import {
+    asyncLikePost,
+    asyncDislikePost,
+} from '../../redux/actions/articleActions';
 
 export default function Like(props) {
     const dispatch = useDispatch();

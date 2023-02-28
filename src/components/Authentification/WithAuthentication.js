@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import defaultPhoto from '../../img/avatar.svg';
-import { articleCreate, accountLoginOut } from '../../redux/actions/actions';
+import { accountLoginOut } from '../../redux/actions/userActions';
+import { articleCreate } from '../../redux/actions/articleActions';
 
 import style from './Authentification.module.scss';
 

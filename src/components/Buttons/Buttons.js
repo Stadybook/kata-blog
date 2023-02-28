@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Popconfirm } from 'antd';
 
-import { asyncDeleteArticles } from '../../redux/actions/actions';
+import { asyncDeleteArticles } from '../../redux/actions/articleActions';
 
 import style from './Buttons.module.scss';
 
