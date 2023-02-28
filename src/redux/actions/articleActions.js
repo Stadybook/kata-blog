@@ -154,10 +154,10 @@ export function asyncDeleteArticles(slug, token) {
         getInfo
             .deletePost(slug, token)
             .then((body) => {
-                if (body === undefined) {
-                    dispatch(articleDelete(body));
-                } else {
+                if (body.errors) {
                     dispatch(catchError());
+                } else {
+                    dispatch(articleDelete(body));
                 }
             })
             .catch((e) => {

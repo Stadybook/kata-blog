@@ -65,7 +65,6 @@ const articlesReducer = (state = initialState, action) => {
                 articleResponse: action.payload,
                 loading: false,
             };
-
         default:
             return state;
     }

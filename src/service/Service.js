@@ -36,23 +36,19 @@ export default class Service {
     };
 
     deletePost = async (slug, token) => {
-        try {
-            const url = `${baseURL}articles/${slug}`;
-            const response = await fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    slug,
-                }),
-            });
-            const data = await response.json();
-            return data;
-        } catch (e) {
-            throw new Error(`Service ${e.message}`);
+        const url = `${baseURL}articles/${slug}`;
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('invalid responce', response.status);
         }
+        const body = await response;
+        return body;
     };
 
     postUser = async ({ username, email, password }) => {
@@ -144,7 +140,6 @@ export default class Service {
                     },
                 }),
             });
-
             const data = await response.json();
             return data;
         } catch (e) {
@@ -185,14 +180,9 @@ export default class Service {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    slug,
-                }),
             });
-
             const data = await response.json();
             return data;
         } catch (e) {
@@ -206,14 +196,9 @@ export default class Service {
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    slug,
-                }),
             });
-
             const data = await response.json();
             return data;
         } catch (e) {

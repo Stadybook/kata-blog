@@ -78,10 +78,6 @@ function CreateAndEditArticle(props) {
         reset();
     };
 
-    if (articleResponse !== null) {
-        return <Redirect to='/articles/' />;
-    }
-
     const onDelete = (id) => {
         const index = listOfTags.findIndex((el) => el.id === id);
         const newData = [
@@ -120,6 +116,10 @@ function CreateAndEditArticle(props) {
             </li>
         );
     });
+
+    if (articleResponse !== null) {
+        return <Redirect to='/articles/' />;
+    }
 
     return error ? (
         <Error />
