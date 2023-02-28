@@ -1,4 +1,4 @@
 Kata Blog
 
-https://kata-blog-jet.vercel.app/
+https://kata-blog-jet.vercel.app/articles/
 
