@@ -11,7 +11,8 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
+
 
 import getId from '../../helpFunctions/getId';
 import defaultPhoto from '../../img/avatar.svg';
@@ -22,6 +23,7 @@ import style from './Article.module.scss';
 
 export default function Article(props) {
     const user = useSelector((state) => state.userReducer.user);
+  
     let authorizationPerson = false;
     if(user !== undefined && user !== null){
          authorizationPerson = user.username
@@ -42,6 +44,7 @@ export default function Article(props) {
         full
     } = props;
    
+ 
     const { image, username } = author;
    
     const tags = tagList.map((tag) => {

@@ -5,6 +5,8 @@ import {
     newArticle,
     loadfullArticle,
     load,
+    deleteArticle,
+    articleError,
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +15,7 @@ const initialState = {
     page: 1,
     loading: true,
     fullArticle: null,
-    createdArticle: null,
+    articleResponse: null,
     articleError: false,
 };
 
@@ -25,7 +27,7 @@ const articlesReducer = (state = initialState, action) => {
                 articles: [...action.payload.articles],
                 articlesCount: action.payload.articlesCount,
                 loading: false,
-                createdArticle: null,
+                articleResponse: null,
             };
         case changingPage:
             return {
@@ -48,13 +50,19 @@ const articlesReducer = (state = initialState, action) => {
         case newArticle:
             return {
                 ...state,
-                createdArticle: action.payload,
+                articleResponse: action.payload,
                 loading: false,
             };
-        case ' articles_error':
+        case articleError:
             return {
                 ...state,
                 articleError: true,
+                loading: false,
+            };
+        case deleteArticle:
+            return {
+                ...state,
+                articleResponse: action.payload,
                 loading: false,
             };
 

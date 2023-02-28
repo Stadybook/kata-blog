@@ -1,9 +1,10 @@
 export const loadArticles = 'load_articles';
 export const loadfullArticle = 'load_full_articles';
-// export const deleteArticle =
+export const deleteArticle = 'delete_article';
 export const changingPage = 'change_page';
 export const signIn = 'sign_in';
 export const userError = 'user_error';
+export const articleError = 'articles_error';
 export const deleteUserError = 'delete_article';
 export const signUp = 'sign_up';
 export const logOut = 'log_out';

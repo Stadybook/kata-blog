@@ -1,14 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect,
+} from 'react-router-dom';
 
 import './App.scss';
 
 import Header from '../Header';
 import SignUpPage from '../SignUpPage';
 import SignInPage from '../SignInPage';
-// import FullArticle from '../FullArticle';
 import ArticleListPage from '../../pages/ArticlesListPage';
 import ArticalePage from '../../pages/ArticalePage';
 import EditProfilePage from '../EditProfilePage';
@@ -26,7 +30,9 @@ export default function App() {
             <div className='container'>
                 <Header />
                 <Switch>
-                    <Route path='/' exact />
+                    <Route path='/' exact>
+                        <Redirect to='/articles/' />
+                    </Route>
                     <Route path='/sign-up' component={SignUpPage} />
                     <Route path='/sign-in' component={SignInPage} />
                     <Route path='/profile' component={EditProfilePage} />

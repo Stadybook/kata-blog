@@ -17,6 +17,8 @@ import {
     userError,
     load,
     clean,
+    deleteArticle,
+    articleError,
 } from './types';
 
 const getInfo = new Service();
@@ -65,23 +67,7 @@ export function cleanArr() {
 
 function articleDelete() {
     return {
-        type: 'delete_article',
-    };
-}
-
-export function asyncDeleteArticles(slug, token) {
-    return (dispatch) => {
-        getInfo
-            .deleteArticle(slug, token)
-            .then((body) => {
-                // console.log(body)
-                // dispatch(articleDelete(body));
-            })
-            .catch((e) => {
-                if (e.message !== 'Error: 500') {
-                    throw new Error(`Service ${e.message}`);
-                }
-            });
+        type: deleteArticle,
     };
 }
 
@@ -233,7 +219,7 @@ function addArticle(payload) {
 
 function catchError(payload) {
     return {
-        type: 'articles_error',
+        type: articleError,
         payload,
     };
 }
@@ -266,6 +252,25 @@ export function asyncUpdateArticle(data, slug, token, tags) {
                     dispatch(addArticle(body));
                 } else {
                     dispatch(catchError(body.errors));
+                }
+            })
+            .catch((e) => {
+                if (e.message !== 'Error: 500') {
+                    throw new Error(`Service ${e.message}`);
+                }
+            });
+    };
+}
+
+export function asyncDeleteArticles(slug, token) {
+    return (dispatch) => {
+        getInfo
+            .deleteArticle(slug, token)
+            .then((body) => {
+                if (body === undefined) {
+                    dispatch(articleDelete(body));
+                } else {
+                    dispatch(catchError(body));
                 }
             })
             .catch((e) => {

@@ -23,8 +23,8 @@ function CreateAndEditArticle(props) {
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
     );
-    const createdArticle = useSelector(
-        (state) => state.articlesReducer.createdArticle
+    const articleResponse = useSelector(
+        (state) => state.articlesReducer.articleResponse
     );
     const error = useSelector((state) => state.articlesReducer.articleError);
 
@@ -80,7 +80,7 @@ function CreateAndEditArticle(props) {
         reset();
     };
 
-    if (createdArticle !== null) {
+    if (articleResponse !== null) {
         return <Redirect to='/articles/' />;
     }
 

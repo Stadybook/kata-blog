@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Popconfirm } from 'antd';
-import { Link, Redirect, useHistory } from 'react-router-dom';
 
 import { asyncDeleteArticles } from '../../redux/actions/actions';
 
@@ -12,8 +11,6 @@ const text = 'Are you sure to delete this article?';
 const description = 'Delete the article';
 
 export default function Buttons(props) {
-    const history = useHistory();
-    // const [action, setAction] = useState(false);
     const { onEdit } = props;
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
@@ -24,9 +21,7 @@ export default function Buttons(props) {
     const dispatch = useDispatch();
 
     const onDelete = () => {
-        console.log('delete');
         dispatch(asyncDeleteArticles(slug, token));
-        history.push('/articles/');
     };
 
     return (

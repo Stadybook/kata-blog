@@ -19,14 +19,13 @@ export default function ArticleList(props) {
     const page = useSelector((state) => state.articlesReducer.page);
     const articles = useSelector((state) => state.articlesReducer.articles);
     const loading = useSelector((state) => state.articlesReducer.loading);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(asyncGetArticles(page));
         dispatch(makeLoad());
         dispatch(cleanArr());
-    }, [page]);
+    }, [page, dispatch]);
 
     const elements = articles.map((item) => {
         // console.log(item)
