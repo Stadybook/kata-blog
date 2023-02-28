@@ -1,16 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncCreateUser } from '../../redux/actions/userActions';
+import WarningAlert from '../components/WarningAlert/WarningAlert';
+import { asyncCreateUser } from '../redux/actions/userActions';
 
-import style from './SignUpPage.module.scss';
+import style from './Forms.module.scss';
 
 function SignUpPage() {
     const user = useSelector((state) => state.userReducer.user);
@@ -143,7 +140,7 @@ function SignUpPage() {
                                 required: 'This is required.',
                             })}
                         />
-                        <label className={style.label} htmlFor='checkbox'>
+                        <label htmlFor='checkbox' className={style.label}>
                             <span>
                                 I agree to the processing of my personal
                                 information

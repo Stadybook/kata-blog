@@ -1,17 +1,12 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
-
 import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncLogIn } from '../../redux/actions/userActions';
+import WarningAlert from '../components/WarningAlert/WarningAlert';
+import { asyncLogIn } from '../redux/actions/userActions';
 
-import style from './SignInPage.module.scss';
+import style from './Forms.module.scss';
 
 function SignInPage() {
     const user = useSelector((state) => state.userReducer.user);
@@ -43,7 +38,7 @@ function SignInPage() {
                         onSubmit={handleSubmit(onSubmit)}
                         className={style.inputs}
                     >
-                        <label>
+                        <label htmlFor='email'>
                             <span>Email address</span>
                             <input
                                 className={errors?.email ? style.danger : null}
@@ -58,7 +53,7 @@ function SignInPage() {
                             />
                         </label>
                         <p>{errors?.email?.message}</p>
-                        <label>
+                        <label htmlFor='password'>
                             <span> Password</span>
                             <input
                                 type='password'

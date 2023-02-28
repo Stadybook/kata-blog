@@ -1,24 +1,18 @@
 /* eslint-disable func-names */
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
 
-import React, { useEffect } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
-import WarningAlert from '../WarningAlert/WarningAlert';
-import { asyncEditProfile } from '../../redux/actions/userActions';
+import WarningAlert from '../components/WarningAlert/WarningAlert';
+import { asyncEditProfile } from '../redux/actions/userActions';
 
-import style from './EditProfilePage.module.scss';
+import style from './Forms.module.scss';
 
 const confirm = () => {
-    message.info(
-        'Incorrect url of the image. Please check the url or clear the field'
-    );
+    message.info('Incorrect url of the image. Please check the url');
 };
 
 function EditProfilePage() {
@@ -79,7 +73,7 @@ function EditProfilePage() {
                     onSubmit={handleSubmit(onSubmit)}
                     className={style.inputs}
                 >
-                    <label>
+                    <label htmlFor='username'>
                         <span> Username</span>
                         <input
                             className={errors?.username ? style.danger : null}
@@ -101,7 +95,7 @@ function EditProfilePage() {
                         />
                     </label>
                     <p>{errors?.username?.message}</p>
-                    <label>
+                    <label htmlFor='email'>
                         <span> Email address</span>
                         <input
                             type='email'
@@ -117,7 +111,7 @@ function EditProfilePage() {
                         />
                     </label>
                     <p>{errors?.email?.message}</p>
-                    <label>
+                    <label htmlFor='password'>
                         <span> New password</span>
                         <input
                             type='password'
@@ -139,7 +133,7 @@ function EditProfilePage() {
                         />
                     </label>
                     <p>{errors?.password?.message}</p>
-                    <label>
+                    <label htmlFor='image'>
                         <span> Avatar image (url)</span>
                         <input
                             placeholder='Avatar image'

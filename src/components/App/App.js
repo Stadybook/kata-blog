@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-
 import {
     BrowserRouter as Router,
     Route,
@@ -11,12 +8,12 @@ import {
 import './App.scss';
 
 import Header from '../Header';
-import SignUpPage from '../SignUpPage';
-import SignInPage from '../SignInPage';
+import SignUpPage from '../../pages/SignUpPage';
+import SignInPage from '../../pages/SignInPage';
 import ArticleListPage from '../../pages/ArticlesListPage';
 import ArticalePage from '../../pages/ArticalePage';
-import EditProfilePage from '../EditProfilePage';
-import CreateAndEditArticle from '../CreateArticle';
+import EditProfilePage from '../../pages/EditProfilePage';
+import CreateAndEditArticle from '../../pages/CreateAndEditArticle';
 import NotFound from '../../pages/NotFound';
 import DisconnectIndicator from '../DisconnectIndicator';
 

@@ -1,23 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable array-callback-return */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Error from '../ErrorHanding';
+import Error from '../components/ErrorHanding';
 import {
     asyncAddArticle,
     asyncUpdateArticle,
-} from '../../redux/actions/articleActions';
-import getId from '../../helpFunctions/getId';
+} from '../redux/actions/articleActions';
+import getId from '../helpFunctions/getId';
 
-import style from './CreateAndEditArticle.module.scss';
+import style from './Forms.module.scss';
 
 function CreateAndEditArticle(props) {
+    const dispatch = useDispatch();
     const { edit } = props;
     const user = useSelector((state) => state.userReducer.user);
     const fullArticle = useSelector(
@@ -61,7 +60,6 @@ function CreateAndEditArticle(props) {
         defaultValues: initValue,
     });
 
-    const dispatch = useDispatch();
     const [listOfTags, setTagList] = useState(initValue.tagList);
     const [tagValue, setTagValue] = useState({ name: '', id: '' });
 
@@ -126,7 +124,7 @@ function CreateAndEditArticle(props) {
     return error ? (
         <Error />
     ) : (
-        <section className={style.container}>
+        <section className={`${style.container} ${style.lg}`}>
             <h5 className={style.title}>Create new article</h5>
             <form onSubmit={handleSubmit(onSubmit)} className={style.inputs}>
                 <label htmlFor='title'>

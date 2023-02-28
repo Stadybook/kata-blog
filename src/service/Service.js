@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 const baseURL = 'https://blog.kata.academy/api/';
 export default class Service {

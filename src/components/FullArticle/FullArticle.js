@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect } from 'react';
 import './FullArticle.scss';
 import { useSelector, useDispatch } from 'react-redux';

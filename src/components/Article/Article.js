@@ -1,8 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable consistent-return */
-
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
@@ -61,7 +57,8 @@ export default function Article(props) {
             <div className={style.header}>
                 <div>
                     <div className={style.info}>
-                        <a
+                        <button
+                            type='button'
                             onClick={() => onSelected(slug)}
                             className={
                                 full
@@ -70,7 +67,7 @@ export default function Article(props) {
                             }
                         >
                             {func(title, 50)}
-                        </a>
+                        </button>
                         <div className={style.likes}>
                             <Like
                                 favoritesCount={favoritesCount}
