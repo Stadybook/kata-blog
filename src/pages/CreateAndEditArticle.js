@@ -18,7 +18,10 @@ import style from './Forms.module.scss';
 function CreateAndEditArticle(props) {
     const dispatch = useDispatch();
     const { edit } = props;
+
     const user = useSelector((state) => state.userReducer.user);
+    const { token } = user;
+
     const fullArticle = useSelector(
         (state) => state.articlesReducer.fullArticle
     );
@@ -45,11 +48,6 @@ function CreateAndEditArticle(props) {
         };
     }
 
-    if (user === undefined || user === null) {
-        return <Redirect to='/sign-in' />;
-    }
-
-    const { token } = user;
     const {
         register,
         handleSubmit,

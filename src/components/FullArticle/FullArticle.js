@@ -10,6 +10,7 @@ import {
     makeLoad,
 } from '../../redux/actions/articleActions';
 import Article from '../Article';
+import Error from '../ErrorHanding/ErrorHanding';
 
 export default function FullArticle(props) {
     const { onEdit } = props;
@@ -21,6 +22,7 @@ export default function FullArticle(props) {
     const articleResponse = useSelector(
         (state) => state.articlesReducer.articleResponse
     );
+    const error = useSelector((state) => state.articlesReducer.articlesError);
     const user = useSelector((state) => state.userReducer.user);
 
     let Token = '';
@@ -46,8 +48,9 @@ export default function FullArticle(props) {
             <ReactMarkdown className='text'>{fullArticle.body}</ReactMarkdown>
         );
     }
+
     const content =
-        loading || fullArticle === null ? (
+        (loading && !error) || fullArticle === null ? (
             <Spiner />
         ) : (
             <article>
@@ -63,5 +66,5 @@ export default function FullArticle(props) {
             </article>
         );
 
-    return content;
+    return error ? <Error /> : content;
 }

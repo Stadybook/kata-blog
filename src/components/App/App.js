@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {
     BrowserRouter as Router,
     Route,
@@ -17,6 +18,8 @@ import CreateAndEditArticle from '../../pages/CreateAndEditArticle';
 import NotFound from '../../pages/NotFound';
 import DisconnectIndicator from '../DisconnectIndicator';
 
+import PrivateRoute from './PrivateRouter';
+
 export default function App() {
     if (!navigator.onLine) {
         return <DisconnectIndicator />;
@@ -32,11 +35,15 @@ export default function App() {
                     </Route>
                     <Route path='/sign-up' component={SignUpPage} />
                     <Route path='/sign-in' component={SignInPage} />
-                    <Route path='/profile' component={EditProfilePage} />
-                    <Route
-                        path='/new-article'
-                        component={CreateAndEditArticle}
+                    <PrivateRoute
+                        path='/profile'
+                        component={() => <EditProfilePage />}
                     />
+                    <PrivateRoute
+                        path='/new-article'
+                        component={() => <CreateAndEditArticle />}
+                    />
+
                     <Route
                         path='/articles/'
                         exact

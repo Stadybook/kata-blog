@@ -9,6 +9,7 @@ import {
     deleteUserError,
     userError,
     clean,
+    loading,
 } from './types';
 
 const getInfo = new Service();
@@ -16,6 +17,12 @@ const getInfo = new Service();
 export function cleanArr() {
     return {
         type: clean,
+    };
+}
+
+export function makeLoad() {
+    return {
+        type: loading,
     };
 }
 

@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import WarningAlert from '../components/WarningAlert/WarningAlert';
-import { asyncLogIn } from '../redux/actions/userActions';
+import { asyncLogIn, makeLoad } from '../redux/actions/userActions';
+import Spiner from '../components/Spiner/Spiner';
 
 import style from './Forms.module.scss';
 
 function SignInPage() {
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
+    const loading = useSelector((state) => state.userReducer.load);
     const dispatch = useDispatch();
     const {
         register,
@@ -21,10 +23,12 @@ function SignInPage() {
         mode: 'onBlur',
     });
 
-    const alert = error ? <WarningAlert error={error} /> : null;
+    const alert = error && !error ? <WarningAlert error={error} /> : null;
+    const spiner = loading && !error ? <Spiner /> : null;
 
-    if (user === undefined || user === null) {
+    if (!user) {
         const onSubmit = (data) => {
+            dispatch(makeLoad());
             dispatch(asyncLogIn(data));
             reset();
         };
@@ -32,6 +36,7 @@ function SignInPage() {
         return (
             <>
                 {alert}
+                {spiner}
                 <section className={style.container}>
                     <h5 className={style.title}>Sign In</h5>
                     <form

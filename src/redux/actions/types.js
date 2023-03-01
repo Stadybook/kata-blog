@@ -15,3 +15,4 @@ export const logOut = 'log_out';
 export const createAccount = 'create_user';
 export const editAccount = 'edit_user';
 export const clean = 'clean';
+export const loading = 'load';

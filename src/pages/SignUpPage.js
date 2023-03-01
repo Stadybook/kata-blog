@@ -4,14 +4,16 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Spiner from '../components/Spiner/Spiner';
 import WarningAlert from '../components/WarningAlert/WarningAlert';
-import { asyncCreateUser } from '../redux/actions/userActions';
+import { asyncCreateUser, makeLoad } from '../redux/actions/userActions';
 
 import style from './Forms.module.scss';
 
 function SignUpPage() {
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
+    const loading = useSelector((state) => state.userReducer.load);
     const dispatch = useDispatch();
     const {
         register,
@@ -24,16 +26,19 @@ function SignUpPage() {
     });
 
     const alert = error ? <WarningAlert error={error} /> : null;
+    const spiner = loading && !error ? <Spiner /> : null;
 
-    if (user === undefined || user === null) {
+    if (!user) {
         const onSubmit = (data) => {
             dispatch(asyncCreateUser(data));
+            dispatch(makeLoad());
             reset();
         };
 
         return (
             <>
                 {alert}
+                {spiner}
                 <section className={style.container}>
                     <h5 className={style.title}>Create new account</h5>
                     <form

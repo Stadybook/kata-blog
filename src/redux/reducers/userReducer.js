@@ -6,12 +6,14 @@ import {
     deleteUserError,
     userError,
     clean,
+    loading,
 } from '../actions/types';
 
 const initialState = {
     user: JSON.parse(sessionStorage.getItem('user')),
     userError: null,
     userUpdate: null,
+    load: true,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -20,12 +22,14 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: { ...action.payload },
+                load: false,
             };
         case editAccount:
             return {
                 ...state,
                 user: { ...action.payload },
                 userUpdate: action.payload,
+                load: false,
             };
         case logOut:
             return {
@@ -36,16 +40,24 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userError: action.payload,
+                load: false,
             };
         case deleteUserError:
             return {
                 ...state,
                 userError: null,
+                load: false,
             };
         case clean:
             return {
                 ...state,
                 userUpdate: null,
+                load: false,
+            };
+        case loading:
+            return {
+                ...state,
+                load: true,
             };
 
         default:

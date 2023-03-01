@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
 import WarningAlert from '../components/WarningAlert/WarningAlert';
-import { asyncEditProfile } from '../redux/actions/userActions';
+import Spiner from '../components/Spiner/Spiner';
+import { asyncEditProfile, makeLoad } from '../redux/actions/userActions';
 
 import style from './Forms.module.scss';
 
@@ -22,13 +23,13 @@ function EditProfilePage() {
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
     const userUpdate = useSelector((state) => state.userReducer.userUpdate);
-    const alert = error ? <WarningAlert error={error} /> : null;
+    const loading = useSelector((state) => state.userReducer.load);
 
-    if (user === undefined || user === null) {
-        return <Redirect to='/sign-in' />;
-    }
+    const alert = error ? <WarningAlert error={error} /> : null;
+    const spiner = loading && !error ? <Spiner /> : null;
 
     const { username, email, token } = user;
+
     const {
         register,
         handleSubmit,
@@ -57,6 +58,7 @@ function EditProfilePage() {
     const onSubmit = (data) => {
         if (msg || url === '') {
             dispatch(asyncEditProfile(data, token));
+            dispatch(makeLoad());
             reset();
         } else {
             confirm();
@@ -70,6 +72,7 @@ function EditProfilePage() {
     return (
         <>
             {alert}
+            {spiner}
             <section className={style.container}>
                 <h5 className={style.title}>Edit Profile</h5>
                 <form

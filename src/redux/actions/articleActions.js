@@ -65,6 +65,7 @@ export function asyncGetArticles(page, token) {
             })
             .catch((e) => {
                 if (e.message !== 'Error: 500') {
+                    dispatch(catchError());
                     throw new Error(` ${e.message}`);
                 }
             });
@@ -90,6 +91,7 @@ export function asyncGetFullArticle(slug, token) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }
@@ -123,6 +125,7 @@ export function asyncAddArticle(data, token, tags) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }
@@ -142,6 +145,7 @@ export function asyncUpdateArticle(data, slug, token, tags) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }
@@ -161,6 +165,7 @@ export function asyncDeleteArticles(slug, token) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }
@@ -178,6 +183,7 @@ export function asyncLikePost(slug, token) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }
@@ -195,6 +201,7 @@ export function asyncDislikePost(slug, token) {
                 }
             })
             .catch((e) => {
+                dispatch(catchError());
                 if (e.message !== 'Error: 500') {
                     throw new Error(`${e.message}`);
                 }

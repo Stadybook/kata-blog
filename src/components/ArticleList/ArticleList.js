@@ -13,6 +13,7 @@ import './ArticleList.scss';
 import Article from '../Article';
 import cuttingFn from '../../helpFunctions/cuttingFn';
 import Spiner from '../Spiner/Spiner';
+import Error from '../ErrorHanding/ErrorHanding';
 
 export default function ArticleList(props) {
     const { onSelected } = props;
@@ -20,6 +21,7 @@ export default function ArticleList(props) {
     const articles = useSelector((state) => state.articlesReducer.articles);
     const loading = useSelector((state) => state.articlesReducer.loading);
     const user = useSelector((state) => state.userReducer.user);
+    const error = useSelector((state) => state.articlesReducer.articlesError);
     const dispatch = useDispatch();
 
     let Token = '';
@@ -46,13 +48,14 @@ export default function ArticleList(props) {
         );
     });
 
-    const content = loading ? (
-        <Spiner />
-    ) : (
-        <>
-            <ul className='list'>{elements}</ul>
-            <PaginationFn />
-        </>
-    );
-    return content;
+    const content =
+        loading && !error ? (
+            <Spiner />
+        ) : (
+            <>
+                <ul className='list'>{elements}</ul>
+                <PaginationFn />
+            </>
+        );
+    return error ? <Error /> : content;
 }
