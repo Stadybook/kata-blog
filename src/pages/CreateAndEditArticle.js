@@ -71,7 +71,7 @@ function CreateAndEditArticle(props) {
             data.title === initValue.title &&
             data.description === initValue.description &&
             data.body === initValue.body &&
-            equelFunc(data.tagList, initValue.tagList)
+            equelFunc(listOfTags, initValue.tagList)
         ) {
             confirm('The data has not changed');
         } else {

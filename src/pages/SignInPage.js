@@ -1,4 +1,3 @@
-import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -13,6 +12,7 @@ function SignInPage() {
     const user = useSelector((state) => state.userReducer.user);
     const error = useSelector((state) => state.userReducer.userError);
     const loading = useSelector((state) => state.userReducer.load);
+
     const dispatch = useDispatch();
     const {
         register,

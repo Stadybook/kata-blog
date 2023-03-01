@@ -13,7 +13,7 @@ const initialState = {
     user: JSON.parse(sessionStorage.getItem('user')),
     userError: null,
     userUpdate: null,
-    load: true,
+    load: false,
 };
 
 const userReducer = (state = initialState, action) => {
