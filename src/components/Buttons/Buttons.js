@@ -1,7 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Popconfirm } from 'antd';
 
-import { asyncDeleteArticles } from '../../redux/actions/articleActions';
+import {
+    asyncDeleteArticles,
+    makeLoad,
+} from '../../redux/actions/articleActions';
 
 import style from './Buttons.module.scss';
 
@@ -19,6 +22,7 @@ export default function Buttons(props) {
     const dispatch = useDispatch();
 
     const onDelete = () => {
+        dispatch(makeLoad());
         dispatch(asyncDeleteArticles(slug, token));
     };
 

@@ -12,6 +12,10 @@ import {
 
 import style from './Forms.module.scss';
 
+const confirm = (msg) => {
+    message.info(msg);
+};
+
 function CreateAndEditArticle(props) {
     const dispatch = useDispatch();
     const { edit } = props;
@@ -53,28 +57,47 @@ function CreateAndEditArticle(props) {
     const [listOfTags, setTagList] = useState(initValue.tagList);
     const [tagValue, setTagValue] = useState('');
 
+    const equelFunc = (array1, array2) => {
+        const same =
+            array1.length === array2.length &&
+            array1.every((element, index) => {
+                return element === array2[index];
+            });
+        return same;
+    };
+
     const onSubmit = (data) => {
-        if (edit) {
-            dispatch(
-                asyncUpdateArticle(data, fullArticle.slug, token, listOfTags)
-            );
+        if (
+            data.title === initValue.title &&
+            data.description === initValue.description &&
+            data.body === initValue.body &&
+            equelFunc(data.tagList, initValue.tagList)
+        ) {
+            confirm('The data has not changed');
         } else {
-            dispatch(asyncAddArticle(data, token, listOfTags));
+            if (edit) {
+                dispatch(
+                    asyncUpdateArticle(
+                        data,
+                        fullArticle.slug,
+                        token,
+                        listOfTags
+                    )
+                );
+            } else {
+                dispatch(asyncAddArticle(data, token, listOfTags));
+            }
+            reset();
         }
-        reset();
     };
 
     const onDelete = (tag) => {
         setTagList(listOfTags.filter((item) => item !== tag));
     };
 
-    const confirm = () => {
-        message.info('This tag already exists ');
-    };
-
     const onAddTag = () => {
         if (listOfTags.includes(tagValue)) {
-            confirm();
+            confirm('This tag already exists ');
             setTagValue('');
         } else {
             setTagList((list) => [...list, tagValue]);
