@@ -81,7 +81,6 @@ $color_6: #1890FF;
 	span {
 		font-weight: 400;
 		font-size: 14px;
-		margin-bottom: 6px;
 	}
 	.btn {
 		color: $color_4;
@@ -149,6 +148,9 @@ $color_6: #1890FF;
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	max-width: 600px;
+	word-break: break-word;
+	white-space: normal;
 }
 .add {
 	background-color: #FFFFFF;

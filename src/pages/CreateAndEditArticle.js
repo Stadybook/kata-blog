@@ -1,9 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable array-callback-return */
 import React, { useState } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Tag } from 'antd';
+import { Tag, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Error from '../components/ErrorHanding';
@@ -11,7 +9,6 @@ import {
     asyncAddArticle,
     asyncUpdateArticle,
 } from '../redux/actions/articleActions';
-import getId from '../helpFunctions/getId';
 
 import style from './Forms.module.scss';
 
@@ -35,16 +32,11 @@ function CreateAndEditArticle(props) {
     if (fullArticle && edit) {
         const { title, description, body, tagList } = fullArticle;
 
-        const getData = (arrArrs) => {
-            return arrArrs.map((val) => ({ name: val, id: getId() }));
-        };
-        const newTagList = getData(tagList);
-
         initValue = {
             title,
             description,
             body,
-            tagList: newTagList,
+            tagList,
         };
     }
 
@@ -59,55 +51,45 @@ function CreateAndEditArticle(props) {
     });
 
     const [listOfTags, setTagList] = useState(initValue.tagList);
-    const [tagValue, setTagValue] = useState({ name: '', id: '' });
+    const [tagValue, setTagValue] = useState('');
 
     const onSubmit = (data) => {
-        const tagsArr = [];
-        listOfTags.map((el) => {
-            tagsArr.push(el.name);
-        });
         if (edit) {
             dispatch(
-                asyncUpdateArticle(data, fullArticle.slug, token, tagsArr)
+                asyncUpdateArticle(data, fullArticle.slug, token, listOfTags)
             );
         } else {
-            dispatch(asyncAddArticle(data, token, tagsArr));
+            dispatch(asyncAddArticle(data, token, listOfTags));
         }
         reset();
     };
 
-    const onDelete = (id) => {
-        const index = listOfTags.findIndex((el) => el.id === id);
-        const newData = [
-            ...listOfTags.slice(0, index),
-            ...listOfTags.slice(index + 1),
-        ];
-        setTagList(newData);
+    const onDelete = (tag) => {
+        setTagList(listOfTags.filter((item) => item !== tag));
+    };
+
+    const confirm = () => {
+        message.info('This tag already exists ');
     };
 
     const onAddTag = () => {
-        setTagList((list) => [...list, tagValue]);
-        setTagValue({ name: '', id: '' });
-    };
-
-    const onChange = (name) => {
-        const id = getId();
-        const newTag = {
-            name,
-            id,
-        };
-        setTagValue(newTag);
+        if (listOfTags.includes(tagValue)) {
+            confirm();
+            setTagValue('');
+        } else {
+            setTagList((list) => [...list, tagValue]);
+            setTagValue('');
+        }
     };
 
     const tags = listOfTags.map((tag) => {
-        const { id } = tag;
         return (
-            <li key={tag.id} className={style.tag}>
-                <Tag>{tag.name}</Tag>
+            <li key={tag} className={style.tag}>
+                <Tag>{tag}</Tag>
                 <button
                     className={style.delete}
                     type='button'
-                    onClick={() => onDelete(id)}
+                    onClick={() => onDelete(tag)}
                 >
                     Delete
                 </button>
@@ -176,9 +158,11 @@ function CreateAndEditArticle(props) {
                                                 'You can use only english letters and digits without spaces and other symbols',
                                         },
                                     })}
-                                    value={tagValue.name}
+                                    value={tagValue}
                                     placeholder='tag'
-                                    onChange={(e) => onChange(e.target.value)}
+                                    onChange={(e) =>
+                                        setTagValue(e.target.value)
+                                    }
                                 />
                             </label>
                             <button
