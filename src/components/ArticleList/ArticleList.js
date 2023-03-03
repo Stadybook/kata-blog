@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
     asyncGetArticles,
@@ -15,13 +16,17 @@ import cuttingFn from '../../helpFunctions/cuttingFn';
 import Spiner from '../Spiner/Spiner';
 import Error from '../ErrorHanding/ErrorHanding';
 
-export default function ArticleList(props) {
+function ArticleList(props) {
+    ArticleList.propTypes = {
+        onSelected: PropTypes.func.isRequired,
+    };
+
     const { onSelected } = props;
-    const page = useSelector((state) => state.articlesReducer.page);
-    const articles = useSelector((state) => state.articlesReducer.articles);
-    const loading = useSelector((state) => state.articlesReducer.loading);
-    const user = useSelector((state) => state.userReducer.user);
-    const error = useSelector((state) => state.articlesReducer.articlesError);
+    const { page, articles, loading, articlesError } = useSelector(
+        (state) => state.articlesReducer
+    );
+    const { user } = useSelector((state) => state.userReducer);
+
     const dispatch = useDispatch();
 
     let Token = '';
@@ -47,9 +52,8 @@ export default function ArticleList(props) {
             />
         );
     });
-
     const content =
-        loading && !error ? (
+        loading && !articlesError ? (
             <Spiner />
         ) : (
             <>
@@ -57,5 +61,6 @@ export default function ArticleList(props) {
                 <PaginationFn />
             </>
         );
-    return error ? <Error /> : content;
+    return articlesError ? <Error /> : content;
 }
+export default React.memo(ArticleList);

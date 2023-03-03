@@ -1,8 +1,10 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect } from 'react';
 import './FullArticle.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import { useParams, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Spiner from '../Spiner/Spiner';
 import {
@@ -13,20 +15,18 @@ import Article from '../Article';
 import Error from '../ErrorHanding/ErrorHanding';
 
 export default function FullArticle(props) {
+    FullArticle.propTypes = {
+        onEdit: PropTypes.func.isRequired,
+    };
+
     const { onEdit } = props;
     const dispatch = useDispatch();
-    const fullArticle = useSelector(
-        (state) => state.articlesReducer.fullArticle
-    );
-    const loading = useSelector((state) => state.articlesReducer.loading);
-    const articleResponse = useSelector(
-        (state) => state.articlesReducer.articleResponse
-    );
-    const error = useSelector((state) => state.articlesReducer.articlesError);
-    const user = useSelector((state) => state.userReducer.user);
+    const { fullArticle, articleResponse, loading, articlesError } =
+        useSelector((state) => state.articlesReducer);
+    const { user } = useSelector((state) => state.userReducer);
 
     let Token = '';
-    if (user !== null && user !== undefined) {
+    if (user) {
         const { token } = user;
         Token = token;
     }
@@ -50,7 +50,7 @@ export default function FullArticle(props) {
     }
 
     const content =
-        (loading && !error) || fullArticle === null ? (
+        (loading && !articlesError) || fullArticle === null ? (
             <Spiner />
         ) : (
             <article>
@@ -66,5 +66,5 @@ export default function FullArticle(props) {
             </article>
         );
 
-    return error ? <Error /> : content;
+    return articlesError ? <Error /> : content;
 }

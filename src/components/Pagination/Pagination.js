@@ -6,18 +6,16 @@ import { changePage } from '../../redux/actions/articleActions';
 import './Pagination.scss';
 
 export default function PaginationFn() {
-    const articlesCount = useSelector(
-        (state) => state.articlesReducer.articlesCount
-    );
-    const pagginationPage = useSelector((state) => state.articlesReducer.page);
+    const { articlesCount } = useSelector((state) => state.articlesReducer);
+    const { page } = useSelector((state) => state.articlesReducer);
 
     const dispatch = useDispatch();
     return (
         <Pagination
             className='pagination'
-            onChange={(page) => dispatch(changePage(page))}
+            onChange={(curentPage) => dispatch(changePage(curentPage))}
             defaultCurrent={1}
-            current={pagginationPage}
+            current={page}
             total={articlesCount * 2}
             showSizeChanger={false}
             disabled={false}

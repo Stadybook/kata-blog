@@ -1,10 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Alert } from 'antd';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { cleanUserError } from '../../redux/actions/userActions';
 
 export default function WarningAlert(props) {
+    WarningAlert.propTypes = {
+        error: PropTypes.objectOf(PropTypes.string).isRequired,
+    };
     const { error } = props;
     const dispatch = useDispatch();
     const handleClose = () => {

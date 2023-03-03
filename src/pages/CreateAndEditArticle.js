@@ -1,9 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Tag, message } from 'antd';
+import { message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
+import arrCompare from '../helpFunctions/arrCompare';
+import Tags from '../components/Tags';
 import Error from '../components/ErrorHanding';
 import {
     asyncAddArticle,
@@ -17,25 +21,26 @@ const confirm = (msg) => {
 };
 
 function CreateAndEditArticle(props) {
+    CreateAndEditArticle.propTypes = {
+        edit: PropTypes.bool,
+    };
+    CreateAndEditArticle.defaultProps = {
+        edit: false,
+    };
+
     const dispatch = useDispatch();
-    const { edit } = props;
+    const { user } = useSelector((state) => state.userReducer);
+    const { articleResponse, articleError, fullArticle } = useSelector(
+        (state) => state.articlesReducer
+    );
 
-    const user = useSelector((state) => state.userReducer.user);
     const { token } = user;
-
-    const fullArticle = useSelector(
-        (state) => state.articlesReducer.fullArticle
-    );
-    const articleResponse = useSelector(
-        (state) => state.articlesReducer.articleResponse
-    );
-    const error = useSelector((state) => state.articlesReducer.articleError);
+    const { edit } = props;
 
     let initValue = { title: '', description: '', body: '', tagList: [] };
 
     if (fullArticle && edit) {
         const { title, description, body, tagList } = fullArticle;
-
         initValue = {
             title,
             description,
@@ -43,6 +48,8 @@ function CreateAndEditArticle(props) {
             tagList,
         };
     }
+    const { title, description, body, tagList } = initValue;
+    const [listOfTags, setTagList] = useState(tagList);
 
     const {
         register,
@@ -54,24 +61,12 @@ function CreateAndEditArticle(props) {
         defaultValues: initValue,
     });
 
-    const [listOfTags, setTagList] = useState(initValue.tagList);
-    const [tagValue, setTagValue] = useState('');
-
-    const equelFunc = (array1, array2) => {
-        const same =
-            array1.length === array2.length &&
-            array1.every((element, index) => {
-                return element === array2[index];
-            });
-        return same;
-    };
-
     const onSubmit = (data) => {
         if (
-            data.title === initValue.title &&
-            data.description === initValue.description &&
-            data.body === initValue.body &&
-            equelFunc(listOfTags, initValue.tagList)
+            data.title === title &&
+            data.description === description &&
+            data.body === body &&
+            arrCompare(listOfTags, tagList)
         ) {
             confirm('The data has not changed');
         } else {
@@ -91,40 +86,15 @@ function CreateAndEditArticle(props) {
         }
     };
 
-    const onDelete = (tag) => {
-        setTagList(listOfTags.filter((item) => item !== tag));
-    };
-
-    const onAddTag = () => {
-        if (listOfTags.includes(tagValue)) {
-            confirm('This tag already exists ');
-            setTagValue('');
-        } else {
-            setTagList((list) => [...list, tagValue]);
-            setTagValue('');
-        }
-    };
-
-    const tags = listOfTags.map((tag) => {
-        return (
-            <li key={tag} className={style.tag}>
-                <Tag>{tag}</Tag>
-                <button
-                    className={style.delete}
-                    type='button'
-                    onClick={() => onDelete(tag)}
-                >
-                    Delete
-                </button>
-            </li>
-        );
-    });
+    if (fullArticle === null) {
+        return <Redirect to='/articles/' />;
+    }
 
     if (articleResponse !== null) {
         return <Redirect to='/articles/' />;
     }
 
-    return error ? (
+    return articleError ? (
         <Error />
     ) : (
         <section className={`${style.container} ${style.lg}`}>
@@ -166,39 +136,11 @@ function CreateAndEditArticle(props) {
                     />
                 </label>
                 <p>{errors?.text?.message}</p>
-                <div className={style.tags}>
-                    <span>Tags</span>
-                    <div className={style.tags__list}>
-                        <ul>{tags}</ul>
-                        <div>
-                            <label htmlFor='tag'>
-                                <input
-                                    {...register('tag', {
-                                        required: false,
-                                        pattern: {
-                                            value: /^[a-zA-Z0-9]+$/,
-                                            message:
-                                                'You can use only english letters and digits without spaces and other symbols',
-                                        },
-                                    })}
-                                    value={tagValue}
-                                    placeholder='tag'
-                                    onChange={(e) =>
-                                        setTagValue(e.target.value)
-                                    }
-                                />
-                            </label>
-                            <button
-                                className={style.add}
-                                type='button'
-                                onClick={onAddTag}
-                            >
-                                Add tags
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
+                <Tags
+                    confirm={confirm}
+                    tagList={tagList}
+                    showTags={setTagList}
+                />
                 <input className={style.btn} type='submit' value='Send' />
             </form>
         </section>

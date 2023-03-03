@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { withRouter, Link, Redirect } from 'react-router-dom';
@@ -11,9 +12,7 @@ import { asyncCreateUser, makeLoad } from '../redux/actions/userActions';
 import style from './Forms.module.scss';
 
 function SignUpPage() {
-    const user = useSelector((state) => state.userReducer.user);
-    const error = useSelector((state) => state.userReducer.userError);
-    const loading = useSelector((state) => state.userReducer.load);
+    const { user, userError, load } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
     const {
         register,
@@ -25,14 +24,14 @@ function SignUpPage() {
         mode: 'onBlur',
     });
 
-    const alert = error ? <WarningAlert error={error} /> : null;
-    const spiner = loading && !error ? <Spiner /> : null;
+    const alert = userError ? <WarningAlert error={userError} /> : null;
+    const spiner = load && !userError ? <Spiner /> : null;
 
     if (!user) {
         const onSubmit = (data) => {
             dispatch(asyncCreateUser(data));
             dispatch(makeLoad());
-            reset();
+            // reset();
         };
 
         return (
@@ -156,7 +155,7 @@ function SignUpPage() {
                             className={style.btn}
                             type='submit'
                             value='Create'
-                            disabled={error}
+                            disabled={userError}
                         />
                         <span className={style.link}>
                             Already have an account?

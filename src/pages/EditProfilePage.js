@@ -1,6 +1,4 @@
 /* eslint-disable func-names */
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import { withRouter, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';

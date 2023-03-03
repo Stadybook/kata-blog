@@ -8,7 +8,7 @@ import WithOutAuthentication from '../Authentification/WithOutAutentification';
 import style from './Header.module.scss';
 
 export default function Header() {
-    const user = useSelector((state) => state.userReducer.user);
+    const { user } = useSelector((state) => state.userReducer);
 
     return (
         <header>

@@ -56,11 +56,9 @@ export default function App() {
                             return <ArticalePage />;
                         }}
                     />
-                    <Route
+                    <PrivateRoute
                         path='/articles/:slug/edit'
-                        render={() => {
-                            return <CreateAndEditArticle edit />;
-                        }}
+                        component={() => <CreateAndEditArticle edit />}
                     />
                     <Route component={NotFound} />
                 </Switch>

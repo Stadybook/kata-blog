@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Service from '../../service/Service';
 
 import {

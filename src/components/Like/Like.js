@@ -1,9 +1,7 @@
-/* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './Like.scss';
 import {
@@ -12,9 +10,15 @@ import {
 } from '../../redux/actions/articleActions';
 
 export default function Like(props) {
+    Like.propTypes = {
+        favoritesCount: PropTypes.number.isRequired,
+        slug: PropTypes.string.isRequired,
+        favorited: PropTypes.bool.isRequired,
+    };
+
     const dispatch = useDispatch();
     const { favoritesCount, slug, favorited } = props;
-    const user = useSelector((state) => state.userReducer.user);
+    const { user } = useSelector((state) => state.userReducer);
 
     const [mark, setMark] = useState(favorited);
     const [count, setCount] = useState(favoritesCount);

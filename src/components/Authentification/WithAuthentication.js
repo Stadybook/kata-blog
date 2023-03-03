@@ -9,12 +9,12 @@ import { articleCreate } from '../../redux/actions/articleActions';
 import style from './Authentification.module.scss';
 
 export default function WithAuthentication() {
-    const sign = useSelector((state) => state.signReducer.sign);
-    const user = useSelector((state) => state.userReducer.user);
+    const { sign } = useSelector((state) => state.signReducer);
+    const { user } = useSelector((state) => state.userReducer);
+    const dispatch = useDispatch();
 
     const image = user.image ? user.image : defaultPhoto;
 
-    const dispatch = useDispatch();
     return (
         <ul className={style.btns}>
             <li>

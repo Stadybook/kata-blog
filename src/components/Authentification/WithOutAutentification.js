@@ -7,9 +7,9 @@ import { accountLogin, accountCreate } from '../../redux/actions/userActions';
 import style from './Authentification.module.scss';
 
 export default function WithOutAuthentication() {
-    const sign = useSelector((state) => state.signReducer.sign);
-
+    const { sign } = useSelector((state) => state.signReducer);
     const dispatch = useDispatch();
+
     return (
         <ul className={style.btns}>
             <li>
