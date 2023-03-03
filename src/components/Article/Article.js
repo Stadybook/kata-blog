@@ -1,6 +1,4 @@
-/* eslint-disable react/require-default-props */
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
@@ -32,6 +30,10 @@ function Article({
         onSelected: PropTypes.func,
         onEdit: PropTypes.func,
         func: PropTypes.func.isRequired,
+    };
+    Article.defaultProps = {
+        onSelected: () => {},
+        onEdit: () => {},
     };
     const { user } = useSelector((state) => state.userReducer);
 

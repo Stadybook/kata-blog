@@ -6,13 +6,13 @@ import ReactMarkdown from 'react-markdown';
 import { useParams, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Spiner from '../Spiner/Spiner';
+import Spiner from '../Spiner';
 import {
     asyncGetFullArticle,
     makeLoad,
 } from '../../redux/actions/articleActions';
 import Article from '../Article';
-import Error from '../ErrorHanding/ErrorHanding';
+import Error from '../Error';
 
 export default function FullArticle(props) {
     FullArticle.propTypes = {

@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -13,8 +12,8 @@ import PaginationFn from '../Pagination';
 import './ArticleList.scss';
 import Article from '../Article';
 import cuttingFn from '../../helpFunctions/cuttingFn';
-import Spiner from '../Spiner/Spiner';
-import Error from '../ErrorHanding/ErrorHanding';
+import Spiner from '../Spiner';
+import Error from '../Error';
 
 function ArticleList(props) {
     ArticleList.propTypes = {

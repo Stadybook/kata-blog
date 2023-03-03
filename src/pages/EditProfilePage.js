@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { message } from 'antd';
 
-import WarningAlert from '../components/WarningAlert/WarningAlert';
+import WarningAlert from '../components/WarningAlert';
 import Spiner from '../components/Spiner/Spiner';
 import { asyncEditProfile, makeLoad } from '../redux/actions/userActions';
 

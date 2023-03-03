@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Space } from 'antd';
-import './ErrorHanding.scss';
+import './Error.scss';
 
 function Error() {
     return (

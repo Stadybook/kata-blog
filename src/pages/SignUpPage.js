@@ -5,8 +5,8 @@ import { withRouter, Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Spiner from '../components/Spiner/Spiner';
-import WarningAlert from '../components/WarningAlert/WarningAlert';
+import Spiner from '../components/Spiner';
+import WarningAlert from '../components/WarningAlert';
 import { asyncCreateUser, makeLoad } from '../redux/actions/userActions';
 
 import style from './Forms.module.scss';

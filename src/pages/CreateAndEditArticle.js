@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import arrCompare from '../helpFunctions/arrCompare';
 import Tags from '../components/Tags';
-import Error from '../components/ErrorHanding';
+import Error from '../components/Error';
 import {
     asyncAddArticle,
     asyncUpdateArticle,
@@ -86,11 +86,7 @@ function CreateAndEditArticle(props) {
         }
     };
 
-    if (fullArticle === null) {
-        return <Redirect to='/articles/' />;
-    }
-
-    if (articleResponse !== null) {
+    if (articleResponse !== null || fullArticle === null) {
         return <Redirect to='/articles/' />;
     }
 
