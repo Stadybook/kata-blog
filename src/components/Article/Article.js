@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Tag } from 'antd';
 import { format } from 'date-fns';
@@ -58,7 +57,6 @@ function Article({
     });
 
     const createDate = format(new Date(createdAt), 'MMMM dd, yyyy');
-
     return (
         <section>
             <div className={style.header}>
@@ -100,7 +98,7 @@ function Article({
             </div>
             <div className={style.block}>
                 <div className={style.description}>
-                    {func(description, 200)}
+                    {description !== undefined ? func(description, 200) : ''}
                 </div>
                 {full && authorizationPerson === username ? (
                     <Buttons onEdit={onEdit} />
