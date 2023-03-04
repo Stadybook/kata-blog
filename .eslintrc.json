@@ -35,7 +35,7 @@
         "react/react-in-jsx-scope": "off",
         "react/jsx-props-no-spreading": "off",
         "import/no-extraneous-dependencies": [
-            "error",
+            "warn",
             { "devDependencies": true }
         ],
         "react/prop-types": 0,

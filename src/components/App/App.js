@@ -17,8 +17,7 @@ import EditProfilePage from '../../pages/EditProfilePage';
 import CreateAndEditArticle from '../../pages/CreateAndEditArticle';
 import NotFound from '../../pages/NotFound';
 import DisconnectIndicator from '../DisconnectIndicator';
-
-import PrivateRoute from './PrivateRouter';
+import PrivateRoute from '../../routs/PrivateRouter';
 
 export default function App() {
     if (!navigator.onLine) {

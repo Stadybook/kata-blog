@@ -14,7 +14,7 @@ import {
 import Article from '../Article';
 import Error from '../Error';
 
-export default function FullArticle(props) {
+function FullArticle(props) {
     FullArticle.propTypes = {
         onEdit: PropTypes.func.isRequired,
     };
@@ -68,3 +68,5 @@ export default function FullArticle(props) {
 
     return articlesError ? <Error /> : content;
 }
+
+export default React.memo(FullArticle);

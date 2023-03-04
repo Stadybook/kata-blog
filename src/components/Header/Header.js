@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import WithAuthentication from '../Authentification/WithAuthentication';
-import WithOutAuthentication from '../Authentification/WithOutAutentification';
+import WithAuthentication from '../WithAuthentication';
+import WithOutAuthentication from '../WithOutAutentification';
 
 import style from './Header.module.scss';
 

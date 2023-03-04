@@ -30,10 +30,12 @@ function Article({
         onSelected: PropTypes.func,
         onEdit: PropTypes.func,
         func: PropTypes.func.isRequired,
+        full: PropTypes.bool,
     };
     Article.defaultProps = {
         onSelected: () => {},
         onEdit: () => {},
+        full: false,
     };
     const { user } = useSelector((state) => state.userReducer);
 

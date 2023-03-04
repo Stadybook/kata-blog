@@ -9,7 +9,7 @@ import {
     asyncDislikePost,
 } from '../../redux/actions/articleActions';
 
-export default function Like(props) {
+function Like(props) {
     Like.propTypes = {
         favoritesCount: PropTypes.number.isRequired,
         slug: PropTypes.string.isRequired,
@@ -49,3 +49,5 @@ export default function Like(props) {
         </>
     );
 }
+
+export default React.memo(Like);
