@@ -98,7 +98,7 @@ function Article({
             </div>
             <div className={style.block}>
                 <div className={style.description}>
-                    {description !== undefined ? func(description, 200) : ''}
+                    {func(description, 200)}
                 </div>
                 {full && authorizationPerson === username ? (
                     <Buttons onEdit={onEdit} />

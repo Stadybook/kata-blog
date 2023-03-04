@@ -1,4 +1,5 @@
 export default function cuttingFn(text, symbols) {
+    if (text === undefined) return '';
     if (text.length <= symbols) {
         return text;
     }
