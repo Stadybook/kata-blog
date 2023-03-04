@@ -27,6 +27,15 @@ export default function Tags({ tagList, confirm, showTags }) {
         setTagList(listOfTags.filter((item) => item !== tag));
     };
 
+    const onTagInput = (tag) => {
+        if (tag.length === 1) {
+            const newLabel = tag.trim().replace(/ +/g, ' ');
+            setTagValue(newLabel);
+        } else {
+            setTagValue(tag);
+        }
+    };
+
     const onAddTag = () => {
         if (listOfTags.includes(tagValue)) {
             confirm('This tag already exists ');
@@ -72,7 +81,7 @@ export default function Tags({ tagList, confirm, showTags }) {
                             })}
                             value={tagValue}
                             placeholder='tag'
-                            onChange={(e) => setTagValue(e.target.value)}
+                            onChange={(e) => onTagInput(e.target.value)}
                         />
                     </label>
                     <button

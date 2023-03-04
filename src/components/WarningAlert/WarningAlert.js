@@ -19,18 +19,18 @@ export default function WarningAlert(props) {
     const msg = 'Сlose this notification to continue';
     let warn;
     if (error.email && error.username) {
-        warn = `Email and username are already taken. ${msg}`;
+        warn = 'Email and username are already taken.';
     } else if (error.email) {
-        warn = `Email is already taken. ${msg}`;
+        warn = 'Email is already taken.';
     } else if (error.username) {
-        warn = `Username is already taken. ${msg}`;
+        warn = 'Username is already taken. ';
     } else {
-        warn = `Email or password is invalid. ${msg}`;
+        warn = 'Email or password is invalid.';
     }
 
     return (
         <Alert
-            message={warn}
+            message={`${warn} ${msg}`}
             type='warning'
             showIcon
             closable
