@@ -8,13 +8,22 @@ $color_6: #1890FF;
 
 .container {
 	margin-top: 33px;
-	width: 384px;
 	background: #FFFFFF;
 	border: 1px solid #D9D9D9;
 	box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
 	border-radius: 6px;
 	padding: 48px 32px;
 	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 21px; 
+	width: 938px; 
+	form { 
+		display: flex;
+		flex-direction: column;
+		align-content: center;
+		gap: 12px;
+	}
 	.link {
 		font-weight: 400;
 		font-size: 12px;
@@ -33,16 +42,7 @@ $color_6: #1890FF;
 }
 
 .lg {
-	display: flex;
-	flex-direction: column;
-	gap: 21px; 
-	width: 938px; 
-	form { 
-		display: flex;
-		flex-direction: column;
-		align-content: center;
-		gap: 12px;
-	}
+	
 }
 
 .title {
@@ -82,46 +82,8 @@ $color_6: #1890FF;
 		font-weight: 400;
 		font-size: 14px;
 	}
-	.btn {
-		color: $color_4;
-		width: 319px;
-		height: 40px;
-		background: #1890FF;
-		border: none;
-		border-radius: 4px;
-	}
-	.disabled{
-		background: #aac9e6;
-	}
 	.danger {
 		border-color: #F5222D;
-	}
-}
-
- .toggle {
-	height: auto;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto 0;
-	border: none;
-	-webkit-appearance: none;
-	appearance: none;
-	cursor: pointer;
-	opacity: 0;
-	+ {
-		label {
-			background-image: url('../img/check-mark.svg');
-			background-repeat: no-repeat;
-            background-position: 5px 5px;
-		}
-	}
-	&:checked {
-		+ {
-			label {
-				background-image: url('../img/no-label.svg');
-			}
-		}
 	}
 }
 

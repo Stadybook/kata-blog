@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { withRouter, Link, Redirect } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SignInForm from '../components/SignInForm';

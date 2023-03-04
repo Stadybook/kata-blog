@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import style from '../../pages/Forms.module.scss';
+import InputSubmit from '../InputSubmit';
+
+import style from './SignUpForm.module.scss';
 
 export default function SignUpForm({ onSubmit, userError }) {
     SignUpForm.propTypes = {
@@ -126,14 +128,7 @@ export default function SignUpForm({ onSubmit, userError }) {
                     </span>
                 </label>
                 <p>{errors.checkbox?.message}</p>
-                <input
-                    className={
-                        userError ? `${style.btn} ${style.disabled}` : style.btn
-                    }
-                    type='submit'
-                    value='Create'
-                    disabled={userError}
-                />
+                <InputSubmit userError={userError} value='Create' />
                 <span className={style.link}>
                     Already have an account?
                     <Link to='/sign-in'> Sign In.</Link>

@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import style from '../../pages/Forms.module.scss';
+import InputSubmit from '../InputSubmit';
+
+import style from './SignInForm.module.scss';
 
 export default function SignInForm({ onSubmit, userError }) {
     SignInForm.propTypes = {
@@ -52,12 +54,7 @@ export default function SignInForm({ onSubmit, userError }) {
                     />
                 </label>
                 <p>{errors?.password?.message}</p>
-                <input
-                    className={style.btn}
-                    type='submit'
-                    value='Login'
-                    disabled={userError}
-                />
+                <InputSubmit value='Login' userError={userError} />
                 <span className={style.link}>
                     Don’t have an account?
                     <Link to='/sign-up'> Sign Up.</Link>

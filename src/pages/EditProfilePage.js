@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import { withRouter, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 

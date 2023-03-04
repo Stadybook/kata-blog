@@ -2,7 +2,9 @@
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
-import style from '../../pages/Forms.module.scss';
+import InputSubmit from '../InputSubmit';
+
+import style from './UserForm.module.scss';
 
 export default function UserForm({ onSubmit, email, username, userError }) {
     UserForm.propTypes = {
@@ -103,12 +105,7 @@ export default function UserForm({ onSubmit, email, username, userError }) {
                     />
                 </label>
                 <p>{errors?.image?.message}</p>
-                <input
-                    className={style.btn}
-                    type='submit'
-                    value='Save'
-                    disabled={userError}
-                />
+                <InputSubmit value='Save' userError={userError} />
             </form>
         </section>
     );

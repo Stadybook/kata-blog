@@ -56,9 +56,9 @@ function CreateAndEditArticle(props) {
             arrCompare(listOfTags, tagList)
         ) {
             confirm('The data has not changed');
+        } else if (!edit) {
+            dispatch(asyncAddArticle(data, token, listOfTags));
         } else {
-            if (!edit) dispatch(asyncAddArticle(data, token, listOfTags));
-
             dispatch(
                 asyncUpdateArticle(data, fullArticle.slug, token, listOfTags)
             );

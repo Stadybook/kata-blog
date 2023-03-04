@@ -1,8 +1,11 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
-import style from '../../pages/Forms.module.scss';
 import Tags from '../Tags';
+import InputSubmit from '../InputSubmit';
+
+import style from './ArticleForm.module.scss';
 
 export default function ArticleForm({
     onSubmit,
@@ -37,7 +40,7 @@ export default function ArticleForm({
     });
 
     return (
-        <section className={`${style.container} ${style.lg}`}>
+        <section className={style.container}>
             <h5 className={style.title}>Create new article</h5>
             <form onSubmit={handleSubmit(onSubmit)} className={style.inputs}>
                 <label htmlFor='title'>
@@ -81,7 +84,7 @@ export default function ArticleForm({
                     tagList={tagList}
                     showTags={setTagList}
                 />
-                <input className={style.btn} type='submit' value='Send' />
+                <InputSubmit value='Send' />
             </form>
         </section>
     );
