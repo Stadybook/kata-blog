@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import defaultPhoto from '../../img/avatar.svg';
 import { accountLoginOut } from '../../redux/actions/userActions';
-import { articleCreate } from '../../redux/actions/articleActions';
 
-import style from './Authentification.module.scss';
+import style from './WithAuthentication.module.scss';
 
 export default function WithAuthentication() {
-    const { sign } = useSelector((state) => state.signReducer);
     const { user } = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
-
+    const location = useLocation();
+    const { pathname } = location;
     const image = user.image ? user.image : defaultPhoto;
 
     return (
@@ -21,11 +20,10 @@ export default function WithAuthentication() {
                 <Link
                     to='/new-article'
                     className={
-                        sign === 'Create article'
+                        pathname === '/new-article'
                             ? `${style.btn} ${style.active}`
                             : `${style.btn}`
                     }
-                    onClick={() => dispatch(articleCreate())}
                 >
                     Create article
                 </Link>
@@ -43,11 +41,7 @@ export default function WithAuthentication() {
             <li>
                 <Link
                     to='/sign-in'
-                    className={
-                        sign === 'Log Out'
-                            ? `${style.btn} ${style.active}`
-                            : `${style.btn}`
-                    }
+                    className={style.btn}
                     onClick={() => dispatch(accountLoginOut())}
                 >
                     Log Out

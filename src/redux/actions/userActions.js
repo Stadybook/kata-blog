@@ -1,8 +1,6 @@
 import Service from '../../service/Service';
 
 import {
-    signIn,
-    signUp,
     logOut,
     createAccount,
     editAccount,
@@ -26,15 +24,10 @@ export function makeLoad() {
     };
 }
 
-export function accountLogin() {
+export function buttonsChange(payload) {
     return {
-        type: signIn,
-    };
-}
-
-export function accountCreate() {
-    return {
-        type: signUp,
+        type: 'btnChange',
+        payload,
     };
 }
 

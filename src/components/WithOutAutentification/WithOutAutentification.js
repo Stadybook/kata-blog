@@ -1,26 +1,22 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
-import { accountLogin, accountCreate } from '../../redux/actions/userActions';
-
-import style from './Authentification.module.scss';
+import style from './WithOutAutentification.module.scss';
 
 export default function WithOutAuthentication() {
-    const { sign } = useSelector((state) => state.signReducer);
-    const dispatch = useDispatch();
-
+    const location = useLocation();
+    const { pathname } = location;
     return (
         <ul className={style.btns}>
             <li>
                 <Link
                     to='/sign-in'
                     className={
-                        sign === 'Sign In' || sign === 'Log Out'
+                        pathname === '/sign-in'
                             ? `${style.btn} ${style.active}`
                             : `${style.btn}`
                     }
-                    onClick={() => dispatch(accountLogin())}
                 >
                     Sign In
                 </Link>
@@ -29,11 +25,10 @@ export default function WithOutAuthentication() {
                 <Link
                     to='/sign-up'
                     className={
-                        sign === 'Sign Up'
+                        pathname === '/sign-up'
                             ? `${style.btn} ${style.active}`
                             : `${style.btn}`
                     }
-                    onClick={() => dispatch(accountCreate())}
                 >
                     Sign Up
                 </Link>

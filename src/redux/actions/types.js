@@ -7,10 +7,8 @@ export const createArticle = 'create_article';
 export const newArticle = 'new_article';
 export const load = 'loading';
 
-export const signIn = 'sign_in';
 export const userError = 'user_error';
 export const deleteUserError = 'delete_user_error';
-export const signUp = 'sign_up';
 export const logOut = 'log_out';
 export const createAccount = 'create_user';
 export const editAccount = 'edit_user';

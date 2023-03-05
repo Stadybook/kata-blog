@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ import style from './Header.module.scss';
 
 export default function Header() {
     const { user } = useSelector((state) => state.userReducer);
-
     return (
         <header>
             <nav className={style.navigation}>

@@ -24,7 +24,7 @@ export function articleCreate() {
     return {
         type: createArticle,
     };
-}
+} //
 
 export function cleanArr() {
     return {
