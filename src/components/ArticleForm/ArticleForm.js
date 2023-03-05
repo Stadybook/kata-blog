@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 import Tags from '../Tags';
 import InputSubmit from '../InputSubmit';
-
-import style from './ArticleForm.module.scss';
+import Message from '../Message';
+import FormTitle from '../FormTitle';
 
 export default function ArticleForm({
     onSubmit,
@@ -40,45 +40,53 @@ export default function ArticleForm({
     });
 
     return (
-        <section className={style.container}>
-            <h5 className={style.title}>Create new article</h5>
-            <form onSubmit={handleSubmit(onSubmit)} className={style.inputs}>
-                <label htmlFor='title'>
-                    <span>Title</span>
-                    <input
-                        type='text'
-                        className={errors?.title ? style.danger : null}
-                        {...register('title', {
-                            required: 'This is required.',
-                        })}
-                        placeholder='Title'
-                    />
+        <>
+            <FormTitle text='Create new article' />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+            >
+                <label style={{ fontSize: 14 }} htmlFor='title'>
+                    Title
                 </label>
-                <p>{errors?.title?.message}</p>
-                <label htmlFor='description'>
-                    <span> Short description</span>
-                    <input
-                        type='text'
-                        className={errors?.title ? style.danger : null}
-                        {...register('description', {
-                            required: 'This is required.',
-                        })}
-                        placeholder='Short description'
-                    />
+                <input
+                    type='text'
+                    style={errors?.title ? { borderColor: '#F5222D' } : null}
+                    {...register('title', {
+                        required: 'This is required.',
+                    })}
+                    placeholder='Title'
+                />
+
+                <Message message={errors?.title?.message} />
+                <label style={{ fontSize: 14 }} htmlFor='description'>
+                    Short description
                 </label>
-                <p>{errors?.description?.message}</p>
-                <label htmlFor='body'>
-                    <span> Text</span>
-                    <textarea
-                        type='text'
-                        className={errors?.title ? style.danger : null}
-                        {...register('body', {
-                            required: 'This is required.',
-                        })}
-                        placeholder='Text'
-                    />
+                <input
+                    type='text'
+                    style={
+                        errors?.description ? { borderColor: '#F5222D' } : null
+                    }
+                    {...register('description', {
+                        required: 'This is required.',
+                    })}
+                    placeholder='Short description'
+                />
+
+                <Message message={errors?.description?.message} />
+                <label style={{ fontSize: 14 }} htmlFor='body'>
+                    Text
                 </label>
-                <p>{errors?.text?.message}</p>
+                <textarea
+                    type='text'
+                    style={errors?.body ? { borderColor: '#F5222D' } : null}
+                    {...register('body', {
+                        required: 'This is required.',
+                    })}
+                    placeholder='Text'
+                />
+
+                <Message message={errors?.body?.message} />
                 <Tags
                     confirm={confirm}
                     tagList={tagList}
@@ -86,6 +94,6 @@ export default function ArticleForm({
                 />
                 <InputSubmit value='Send' />
             </form>
-        </section>
+        </>
     );
 }

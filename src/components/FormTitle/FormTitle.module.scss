@@ -1,0 +1,13 @@
+$color_1: #262626;
+$font-family_1: 'Roboto';
+
+.title {
+	font-family: $font-family_1;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 28px;
+	text-align: center;
+	color: $color_1;
+	margin-bottom: 21px;
+}

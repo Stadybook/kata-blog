@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import FormTitle from '../FormTitle';
 import InputSubmit from '../InputSubmit';
+import Message from '../Message';
 
 import style from './SignUpForm.module.scss';
 
@@ -25,95 +27,105 @@ export default function SignUpForm({ onSubmit, userError }) {
         mode: 'onBlur',
     });
     return (
-        <section className={style.container}>
-            <h5 className={style.title}>Create new account</h5>
-            <form onSubmit={handleSubmit(onSubmit)} className={style.inputs}>
-                <label htmlFor='username'>
-                    <span> Username</span>
-                    <input
-                        className={errors?.username ? style.danger : null}
-                        {...register('username', {
-                            required: 'This is required.',
-                            pattern: {
-                                value: /^[a-z][a-z0-9]*$/,
-                                message:
-                                    'You can only use lowercase English letters and numbers',
-                            },
-                            minLength: {
-                                value: 3,
-                                message:
-                                    'Your username needs to be at least 3 characters.',
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    'Your username needs to be no more than 20 characters.',
-                            },
-                        })}
-                        placeholder='Username'
-                    />
+        <>
+            <FormTitle text='Create new account' />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+            >
+                <label htmlFor='username' style={{ fontSize: 14 }}>
+                    Username
                 </label>
-                <p>{errors?.username?.message}</p>
-                <label htmlFor='email'>
-                    <span> Email address</span>
-                    <input
-                        className={errors?.email ? style.danger : null}
-                        {...register('email', {
-                            required: 'This is required.',
-                            pattern: {
-                                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                                message: 'Invalid Email',
-                            },
-                        })}
-                        placeholder='Email address'
-                    />
+                <input
+                    style={errors?.username ? { borderColor: '#F5222D' } : null}
+                    {...register('username', {
+                        required: 'This is required.',
+                        pattern: {
+                            value: /^[a-z][a-z0-9]*$/,
+                            message:
+                                'You can only use lowercase English letters and numbers',
+                        },
+                        minLength: {
+                            value: 3,
+                            message:
+                                'Your username needs to be at least 3 characters.',
+                        },
+                        maxLength: {
+                            value: 20,
+                            message:
+                                'Your username needs to be no more than 20 characters.',
+                        },
+                    })}
+                    placeholder='Username'
+                />
+
+                <Message message={errors?.username?.message} />
+                <label style={{ fontSize: 14 }} htmlFor='email'>
+                    Email address
                 </label>
-                <p>{errors?.email?.message}</p>
-                <label htmlFor='password'>
-                    <span> Password </span>
-                    <input
-                        type='password'
-                        className={errors?.password ? style.danger : null}
-                        placeholder='Password'
-                        {...register('password', {
-                            required: 'This is required.',
-                            minLength: {
-                                value: 6,
-                                message:
-                                    'Your password needs to be at least 6 characters.',
-                            },
-                            maxLength: {
-                                value: 40,
-                                message:
-                                    'Your password needs to be no more than 40 characters.',
-                            },
-                        })}
-                    />
+                <input
+                    style={errors?.email ? { borderColor: '#F5222D' } : null}
+                    {...register('email', {
+                        required: 'This is required.',
+                        pattern: {
+                            value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                            message: 'Invalid Email',
+                        },
+                    })}
+                    placeholder='Email address'
+                />
+
+                <Message message={errors?.email?.message} />
+                <label style={{ fontSize: 14 }} htmlFor='password'>
+                    Password{' '}
+                </label>
+                <input
+                    type='password'
+                    style={errors?.password ? { borderColor: '#F5222D' } : null}
+                    placeholder='Password'
+                    {...register('password', {
+                        required: 'This is required.',
+                        minLength: {
+                            value: 6,
+                            message:
+                                'Your password needs to be at least 6 characters.',
+                        },
+                        maxLength: {
+                            value: 40,
+                            message:
+                                'Your password needs to be no more than 40 characters.',
+                        },
+                    })}
+                />
+
+                <Message message={errors?.password?.message} />
+
+                <label style={{ fontSize: 14 }} htmlFor='passwordRepeat'>
+                    Repeat Password{' '}
                 </label>
 
-                <p>{errors?.password?.message}</p>
-
-                <label htmlFor='passwordRepeat'>
-                    <span> Repeat Password </span>
-                    <input
-                        type='password'
-                        className={errors?.passwordRepeat ? style.danger : null}
-                        placeholder='Password'
-                        {...register('passwordRepeat', {
-                            required: 'This is required.',
-                            validate: {
-                                matchesPreviousPassword: (value) => {
-                                    const { password } = getValues();
-                                    return (
-                                        password === value ||
-                                        'Passwords must match'
-                                    );
-                                },
+                <input
+                    type='password'
+                    style={
+                        errors?.passwordRepeat
+                            ? { borderColor: '#F5222D' }
+                            : null
+                    }
+                    placeholder='Password'
+                    {...register('passwordRepeat', {
+                        required: 'This is required.',
+                        validate: {
+                            matchesPreviousPassword: (value) => {
+                                const { password } = getValues();
+                                return (
+                                    password === value || 'Passwords must match'
+                                );
                             },
-                        })}
-                    />
-                </label>
-                <p>{errors?.passwordRepeat?.message}</p>
+                        },
+                    })}
+                />
+
+                <Message message={errors?.passwordRepeat?.message} />
                 <input
                     type='checkbox'
                     id='checkbox'
@@ -122,18 +134,27 @@ export default function SignUpForm({ onSubmit, userError }) {
                         required: 'This is required.',
                     })}
                 />
-                <label htmlFor='checkbox' className={style.label}>
-                    <span>
-                        I agree to the processing of my personal information
-                    </span>
+                <label
+                    style={{ fontSize: 14 }}
+                    htmlFor='checkbox'
+                    className={style.label}
+                >
+                    I agree to the processing of my personal information
                 </label>
-                <p>{errors.checkbox?.message}</p>
+                <Message message={errors.checkbox?.message} />
                 <InputSubmit userError={userError} value='Create' />
-                <span className={style.link}>
+                <span
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        color: '#8C8C8C',
+                        fontSize: 12,
+                    }}
+                >
                     Already have an account?
                     <Link to='/sign-in'> Sign In.</Link>
                 </span>
             </form>
-        </section>
+        </>
     );
 }

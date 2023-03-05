@@ -1,6 +1,7 @@
 import { withRouter, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import FormContainer from '../components/FormContainer';
 import UserForm from '../components/UserForm';
 import WarningAlert from '../components/WarningAlert';
 import Spiner from '../components/Spiner/Spiner';
@@ -30,11 +31,16 @@ function EditProfilePage() {
         <>
             {alert}
             {spiner}
-            <UserForm
-                username={username}
-                email={email}
-                onSubmit={onSubmit}
-                userError={userError}
+            <FormContainer
+                width={384}
+                component={
+                    <UserForm
+                        username={username}
+                        email={email}
+                        onSubmit={onSubmit}
+                        userError={userError}
+                    />
+                }
             />
         </>
     );

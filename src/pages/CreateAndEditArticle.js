@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import FormContainer from '../components/FormContainer';
 import ArticleForm from '../components/ArticleForm';
 import arrCompare from '../helpFunctions/arrCompare';
 import Error from '../components/Error';
@@ -78,14 +79,19 @@ function CreateAndEditArticle(props) {
     return articleError ? (
         <Error />
     ) : (
-        <ArticleForm
-            setTagList={setTagList}
-            onSubmit={onSubmit}
-            title={title}
-            description={description}
-            body={body}
-            tagList={tagList}
-            confirm={confirm}
+        <FormContainer
+            width={938}
+            component={
+                <ArticleForm
+                    setTagList={setTagList}
+                    onSubmit={onSubmit}
+                    title={title}
+                    description={description}
+                    body={body}
+                    tagList={tagList}
+                    confirm={confirm}
+                />
+            }
         />
     );
 }

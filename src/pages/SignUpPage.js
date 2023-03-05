@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import FormContainer from '../components/FormContainer';
 import Spiner from '../components/Spiner';
 import SignUpForm from '../components/SignUpForm';
 import WarningAlert from '../components/WarningAlert';
@@ -24,7 +25,12 @@ function SignUpPage() {
             <>
                 {alert}
                 {spiner}
-                <SignUpForm onSubmit={onSubmit} userError={userError} />
+                <FormContainer
+                    width={384}
+                    component={
+                        <SignUpForm onSubmit={onSubmit} userError={userError} />
+                    }
+                />
             </>
         );
     }

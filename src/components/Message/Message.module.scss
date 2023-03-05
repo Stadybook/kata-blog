@@ -1,0 +1,11 @@
+$color_1: #F5222D;
+$font-family_1: 'Roboto';
+
+p {
+    font-family: $font-family_1;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 22px;
+	color: $color_1;
+}
